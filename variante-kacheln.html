@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!--ARTIFACT-START-->
+<title>FAHRNI Kachel-Variante</title>
+<meta name="description" content="Fahrni Fassadensysteme AG – Startseite, Variante mit Kacheln und runden Ecken.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap">
+<style>
+  /* Layout: Bento-Raster aus abgerundeten Kacheln auf kühlem Grau, schwebende Kopfleiste
+     mit Burger-Menü. FAHRNI-Blau nur als Akzent (Buttons, Marker, aktive Zustände). */
+  :root {
+    color-scheme: light;
+    --accent: #001489;
+    --accent-hover: #0a22b8;
+    --accent-soft: #e8ebfb;
+    --bg: #eef0f4;
+    --tile: #ffffff;
+    --ink: #10131d;
+    --ink-2: #2b3040;
+    --muted: #6b7183;
+    --line: #e1e4eb;
+    --night: #141722;
+    --on-night: #f4f5f8;
+    --on-night-muted: #a9aebd;
+    --font: "Frutiger LT Pro", Frutiger, "Hind", "Segoe UI", Arial, sans-serif;
+    --r-lg: 28px;
+    --r-md: 20px;
+    --r-sm: 14px;
+    --gap: clamp(10px, 1.2vw, 16px);
+    --pad: clamp(22px, 3vw, 44px);
+    --gutter: clamp(12px, 2vw, 24px);
+    --max: 1440px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+  body {
+    margin: 0; overflow-x: hidden;
+    background: var(--bg); color: var(--ink);
+    font-family: var(--font); font-size: 17px; line-height: 1.55;
+  }
+  body.menu-open { overflow: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+  h1, h2, h3, p { margin: 0; }
+  h1, h2, h3 { font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; text-wrap: balance; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+
+  .page { width: min(100%, var(--max)); margin: 0 auto; padding-inline: var(--gutter); }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
+  .grid + .grid, section + section { margin-top: var(--gap); }
+  section { scroll-margin-top: 110px; }
+
+  .tile {
+    background: var(--tile); border-radius: var(--r-lg); padding: var(--pad);
+    min-width: 0; position: relative; overflow: hidden;
+  }
+  .tile--night { background: var(--night); color: var(--on-night); }
+  .tile--flush { padding: 0; }
+
+  .label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  }
+  .label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .tile--night .label { color: var(--on-night-muted); }
+  .tile--night .label::before { background: #8d9bff; }
+
+  .h1 { font-size: clamp(46px, 6.6vw, 104px); }
+  .h1 .light { font-weight: 300; color: var(--muted); display: block; }
+  .h2 { font-size: clamp(34px, 4.2vw, 64px); }
+  .h3 { font-size: clamp(24px, 2.1vw, 32px); }
+  .lead { font-size: clamp(17px, 1.4vw, 21px); color: var(--ink-2); max-width: 44ch; }
+  .tile--night .lead { color: var(--on-night-muted); }
+  .accent { color: var(--accent); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    min-height: 52px; padding: 8px 8px 8px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 16px;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn .dot {
+    display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+    font-size: 17px; transition: transform .25s ease;
+  }
+  .btn:hover .dot { transform: rotate(-45deg); }
+  .btn--accent { background: var(--accent); color: #fff; }
+  .btn--accent .dot { background: #fff; color: var(--accent); }
+  .btn--accent:hover { background: var(--accent-hover); }
+  .btn--ghost { border: 1px solid var(--line); background: var(--tile); color: var(--ink); }
+  .btn--ghost .dot { background: var(--bg); }
+  .btn--ghost:hover { border-color: var(--ink); }
+  .btn--light { background: #fff; color: var(--ink); }
+  .btn--light .dot { background: var(--accent); color: #fff; }
+
+  .round-arrow {
+    display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--line); font-size: 19px; flex: none;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .25s ease;
+  }
+  a:hover > .round-arrow, a:hover .round-arrow { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(-45deg); }
+
+  /* ---------- Fassadenmuster (Bildersatz), neutral gehalten ---------- */
+  .pat { position: relative; overflow: hidden; border-radius: var(--r-md); background-color: #c7ccd6; }
+  .pat::after {
+    content: ""; position: absolute; inset: -20%;
+    background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.4) 50%, transparent 60%);
+    transform: translateX(-65%); transition: transform 1.1s ease; pointer-events: none;
+  }
+  a:hover .pat::after, .pat.is-lit::after { transform: translateX(65%); }
+  .pat--alu {
+    background-image:
+      repeating-linear-gradient(90deg, #eef0f4 0 5px, #ccd1db 5px 18px, #9aa1b0 18px 20px, #707789 20px 22px),
+      linear-gradient(180deg, rgba(255,255,255,.25), rgba(16,19,29,.25));
+    background-blend-mode: multiply;
+  }
+  .pat--glas {
+    background-color: #5d6b8c;
+    background-image:
+      linear-gradient(90deg, #2a2f3d 0 5px, transparent 5px),
+      linear-gradient(180deg, #2a2f3d 0 5px, transparent 5px),
+      linear-gradient(155deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,0) 32%, rgba(190,205,235,.35) 58%, rgba(20,23,34,.55) 100%),
+      linear-gradient(180deg, #c9d5ee, #7d8bab 65%, #3c4560);
+    background-size: 110px 100%, 100% 140px, 100% 100%, 100% 100%;
+  }
+  .pat--element {
+    background-color: #e6e8ee;
+    background-image:
+      linear-gradient(90deg, #3a3f4e 0 3px, transparent 3px),
+      linear-gradient(180deg, #3a3f4e 0 3px, transparent 3px),
+      linear-gradient(90deg, transparent 0 58%, #b6bccb 58% 90%, transparent 90%);
+    background-size: 150px 100%, 100% 190px, 150px 190px;
+    background-position: 75px 0, 0 0, 75px 95px;
+  }
+  .pat--element.pat--accent {
+    background-image:
+      linear-gradient(90deg, #3a3f4e 0 3px, transparent 3px),
+      linear-gradient(180deg, #3a3f4e 0 3px, transparent 3px),
+      linear-gradient(90deg, transparent 0 58%, var(--accent) 58% 90%, transparent 90%);
+  }
+
+  /* ---------- Kopfleiste ---------- */
+  .topbar {
+    position: sticky; z-index: 50; top: env(safe-area-inset-top, 0px);
+    padding-block: var(--gutter) 0;
+  }
+  .topbar-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: rgba(255,255,255,.88); backdrop-filter: blur(14px);
+    border-radius: 999px; padding: 8px 8px 8px 10px;
+    box-shadow: 0 1px 0 rgba(16,19,29,.04), 0 8px 30px rgba(16,19,29,.06);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-mark {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700; font-style: italic; font-size: 23px;
+  }
+  .logo-name { display: grid; font-weight: 700; font-size: 15px; line-height: 1.05; letter-spacing: .05em; }
+  .logo-name small { font-weight: 400; font-size: 11px; letter-spacing: .02em; color: var(--muted); margin-top: 3px; }
+  .topbar-actions { display: flex; align-items: center; gap: 8px; }
+  .topbar .btn { min-height: 48px; }
+  .burger {
+    display: inline-flex; align-items: center; gap: 12px;
+    height: 48px; padding: 0 8px 0 20px; border-radius: 999px;
+    background: var(--ink); color: #fff; font-weight: 600;
+  }
+  .burger .bars { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.12); }
+  .burger i { display: block; width: 16px; height: 2px; background: currentColor; position: relative; transition: background .2s; }
+  .burger i::before, .burger i::after {
+    content: ""; position: absolute; left: 0; width: 16px; height: 2px; background: currentColor;
+    transition: transform .25s ease, top .25s ease;
+  }
+  .burger i::before { top: -5px; }
+  .burger i::after { top: 5px; }
+  body.menu-open .burger i { background: transparent; }
+  body.menu-open .burger i::before { top: 0; transform: rotate(45deg); }
+  body.menu-open .burger i::after { top: 0; transform: rotate(-45deg); }
+
+  /* ---------- Menü-Overlay ---------- */
+  .menu {
+    position: fixed; z-index: 40; inset: 0;
+    padding: calc(env(safe-area-inset-top, 0px) + 96px) var(--gutter) calc(env(safe-area-inset-bottom, 0px) + var(--gutter));
+    background: rgba(238,240,244,.96); backdrop-filter: blur(10px);
+    overflow-y: auto;
+  }
+  .menu .page { padding-inline: 0; }
+  .menu-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
+  .menu-links { grid-column: span 8; display: grid; gap: var(--gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .menu-link {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;
+    min-height: 130px; padding: 24px; border-radius: var(--r-md); background: var(--tile);
+    font-size: clamp(28px, 3vw, 42px); font-weight: 600; letter-spacing: -0.03em; line-height: 1;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .35s ease, transform .35s ease, background-color .2s ease, color .2s ease;
+  }
+  .menu-link small { display: block; font-size: 13px; font-weight: 600; letter-spacing: .1em; color: var(--muted); margin-bottom: 10px; }
+  .menu-link:hover { background: var(--accent); color: #fff; }
+  .menu-link:hover small { color: rgba(255,255,255,.75); }
+  .menu-link:hover .round-arrow { border-color: rgba(255,255,255,.4); }
+  .menu-side { grid-column: span 4; display: grid; gap: 14px; align-content: start; }
+  .menu-side address { font-style: normal; line-height: 1.7; }
+  body.menu-open .menu-link { opacity: 1; transform: none; }
+  body.menu-open .menu-link:nth-child(2) { transition-delay: .04s; }
+  body.menu-open .menu-link:nth-child(3) { transition-delay: .08s; }
+  body.menu-open .menu-link:nth-child(4) { transition-delay: .12s; }
+  body.menu-open .menu-link:nth-child(5) { transition-delay: .16s; }
+
+  /* ---------- Hero ---------- */
+  .hero { margin-top: var(--gap); }
+  .hero-main {
+    grid-column: span 7; display: flex; flex-direction: column; justify-content: space-between; gap: 48px;
+    min-height: clamp(460px, 62vh, 640px);
+  }
+  .hero-main .stack { display: grid; gap: 22px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero-visual { grid-column: span 5; padding: 10px; display: grid; }
+  .hero-visual .stage { position: relative; border-radius: var(--r-md); overflow: hidden; min-height: 380px; }
+  .hero-visual .stage .pat { position: absolute; inset: 0; border-radius: 0; opacity: 0; transition: opacity .6s ease; }
+  .hero-visual .stage .pat.is-shown { opacity: 1; }
+  .switcher {
+    position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2;
+    display: grid; gap: 10px;
+  }
+  .switcher .caption {
+    justify-self: start; background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+    border-radius: var(--r-sm); padding: 12px 16px; max-width: 100%;
+  }
+  .switcher .caption strong { display: block; font-size: 19px; letter-spacing: -0.02em; line-height: 1.15; }
+  .switcher .caption span { color: var(--muted); font-size: 15px; }
+  .seg {
+    display: flex; gap: 4px; padding: 4px; border-radius: 999px;
+    background: rgba(16,19,29,.55); backdrop-filter: blur(8px);
+  }
+  .seg button {
+    flex: 1 1 0; min-width: 0; padding: 10px 8px; border-radius: 999px; color: #fff;
+    font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .seg button:hover { background: rgba(255,255,255,.14); }
+  .seg button[aria-selected="true"] { background: #fff; color: var(--accent); }
+
+  /* ---------- Fassaden ---------- */
+  .section-head {
+    grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
+  }
+  .section-head > div { display: grid; gap: 16px; }
+  .system { grid-column: span 4; display: grid; gap: 18px; padding: 10px 10px var(--pad); align-content: start; transition: transform .25s ease; }
+  .system:hover { transform: translateY(-4px); }
+  .system .pat { aspect-ratio: 5 / 4; max-width: 100%; }
+  .system-body { display: grid; gap: 10px; padding-inline: calc(var(--pad) - 10px); }
+  .system-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .system p { color: var(--ink-2); }
+  .tag { justify-self: start; display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 5px 10px; }
+
+  /* ---------- Unternehmen ---------- */
+  .about-main { grid-column: span 8; display: grid; gap: 28px; align-content: space-between; min-height: 420px; }
+  .about-main .h2 .light { font-weight: 300; color: var(--muted); }
+  .about-side { grid-column: span 4; display: grid; gap: var(--gap); }
+  .about-side .tile { display: grid; gap: 14px; align-content: space-between; }
+  .pill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill-list span { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500; }
+
+  /* ---------- News ---------- */
+  .news { grid-column: span 4; display: grid; gap: 16px; padding: 10px 10px var(--pad); align-content: start; transition: transform .25s ease; }
+  .news:hover { transform: translateY(-4px); }
+  .news .pat { aspect-ratio: 16 / 11; max-width: 100%; }
+  .news-body { display: grid; gap: 10px; padding-inline: calc(var(--pad) - 10px); }
+  .news-meta { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .news-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .news p { color: var(--ink-2); }
+
+  /* ---------- Jobs ---------- */
+  .jobs-main { grid-column: span 7; display: grid; gap: 26px; align-content: space-between; min-height: 440px; }
+  .jobs-main .stack { display: grid; gap: 20px; }
+  .jobs-steps { grid-column: span 5; display: grid; gap: var(--gap); }
+  .step {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--tile); border-radius: var(--r-lg); padding: 22px 22px 22px var(--pad);
+    min-height: 120px; transition: background-color .2s ease, color .2s ease;
+  }
+  .step small { display: block; font-size: 13px; font-weight: 600; letter-spacing: .1em; color: var(--muted); margin-bottom: 6px; }
+  .step strong { font-size: clamp(22px, 2vw, 30px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; }
+  .step:hover { background: var(--accent); color: #fff; }
+  .step:hover small { color: rgba(255,255,255,.75); }
+  .step:hover .round-arrow { border-color: rgba(255,255,255,.4); background: #fff; color: var(--accent); }
+
+  /* ---------- Kontakt ---------- */
+  .contact-main { grid-column: span 7; display: grid; gap: 22px; align-content: start; }
+  .contact-cards { grid-column: span 5; display: grid; gap: var(--gap); }
+  .contact-card { display: grid; gap: 6px; }
+  .contact-card > span { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .contact-card p, .contact-card a.big { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.3; font-weight: 500; }
+  .contact-card .inline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .copy-btn { font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+  .copy-btn:hover { background: var(--accent); color: #fff; }
+
+  /* ---------- Footer ---------- */
+  .footer { margin-block: var(--gap) var(--gutter); }
+  .footer .tile { display: grid; gap: 28px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .footer .logo-name small { color: var(--on-night-muted); }
+  .footer-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  .footer-nav a { padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); font-weight: 500; }
+  .footer-nav a:hover { background: #fff; color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.12); font-size: 14px; color: var(--on-night-muted); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    .hero-main, .hero-visual { grid-column: 1 / -1; }
+    .hero-main { min-height: 0; }
+    .hero-visual .stage { min-height: 420px; }
+    .system, .news { grid-column: span 6; }
+    .system:last-of-type, .news:last-of-type { grid-column: 1 / -1; }
+    .about-main, .about-side, .jobs-main, .jobs-steps, .contact-main, .contact-cards { grid-column: 1 / -1; }
+    .about-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .about-main, .jobs-main { min-height: 0; }
+    .menu-links, .menu-side { grid-column: 1 / -1; }
+  }
+  @media (max-width: 680px) {
+    body { font-size: 16px; }
+    .topbar .btn { display: none; }
+    .burger { padding-left: 16px; }
+    .logo-name { font-size: 14px; }
+    .system, .news, .system:last-of-type, .news:last-of-type { grid-column: 1 / -1; }
+    .about-side { grid-template-columns: minmax(0, 1fr); }
+    .menu-links { grid-template-columns: minmax(0, 1fr); }
+    .menu-link { min-height: 92px; padding: 20px; }
+    .hero-visual .stage { min-height: 400px; }
+    .seg button { font-size: 13px; padding: 10px 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="page">
+    <div class="topbar-inner">
+      <a class="logo" href="#top" aria-label="Fahrni Startseite">
+        <span class="logo-mark" aria-hidden="true">F</span>
+        <span class="logo-name">FAHRNI<small>Fassadensysteme AG</small></span>
+      </a>
+      <div class="topbar-actions">
+        <a class="btn btn--ghost" href="#kontakt">Kontakt <span class="dot" aria-hidden="true">→</span></a>
+        <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu">
+          <span id="burger-label">Menü</span>
+          <span class="bars" aria-hidden="true"><i></i></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <div class="page">
+    <div class="menu-grid">
+      <nav class="menu-links" aria-label="Hauptnavigation">
+        <a class="menu-link" href="#fassaden"><span><small>01</small>Fassaden</span><span class="round-arrow" aria-hidden="true">→</span></a>
+        <a class="menu-link" href="#unternehmen"><span><small>02</small>Unternehmen</span><span class="round-arrow" aria-hidden="true">→</span></a>
+        <a class="menu-link" href="#news"><span><small>03</small>News</span><span class="round-arrow" aria-hidden="true">→</span></a>
+        <a class="menu-link" href="#jobs"><span><small>04</small>Jobs</span><span class="round-arrow" aria-hidden="true">→</span></a>
+        <a class="menu-link" href="#kontakt"><span><small>05</small>Kontakt</span><span class="round-arrow" aria-hidden="true">→</span></a>
+      </nav>
+      <div class="menu-side">
+        <div class="tile">
+          <span class="label">Standort</span>
+          <address style="margin-top: 14px">
+            <strong>Fahrni Fassadensysteme AG</strong><br>
+            Bernstrasse 84<br>
+            CH-3250 Lyss<br>
+            +41 32 387 25 25
+          </address>
+        </div>
+        <div class="pat pat--element pat--accent" style="min-height: 180px" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="page" id="top">
+  <!-- HERO -->
+  <section class="grid hero" aria-labelledby="hero-title">
+    <div class="tile hero-main">
+      <span class="label">Fahrni Fassadensysteme AG</span>
+      <div class="stack">
+        <h1 class="h1" id="hero-title">Ihre Vision,<span class="light">unsere Motivation.</span></h1>
+        <p class="lead">Aluminium-, Glas- und Elementfassaden: geplant, entwickelt und gebaut von Fahrni in Lyss.</p>
+        <div class="hero-actions">
+          <a class="btn btn--accent" href="#fassaden">Fassaden entdecken <span class="dot" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="#unternehmen">Über Fahrni <span class="dot" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="tile hero-visual">
+      <div class="stage" id="hero-stage" role="tabpanel" aria-live="polite">
+        <div class="pat pat--alu is-shown" data-type="alu"></div>
+        <div class="pat pat--glas" data-type="glas"></div>
+        <div class="pat pat--element pat--accent" data-type="element"></div>
+        <div class="switcher">
+          <div class="caption">
+            <strong id="cap-title">Aluminiumfassaden</strong>
+            <span id="cap-text">Schlanke Profile, präzise Fugenbilder.</span>
+          </div>
+          <div class="seg" role="tablist" aria-label="Fassadensysteme">
+            <button role="tab" aria-selected="true" aria-controls="hero-stage" data-type="alu">Aluminium</button>
+            <button role="tab" aria-selected="false" aria-controls="hero-stage" data-type="glas">Glas</button>
+            <button role="tab" aria-selected="false" aria-controls="hero-stage" data-type="element">Element</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FASSADEN -->
+  <section class="grid" id="fassaden" aria-labelledby="systems-title">
+    <div class="tile section-head">
+      <div>
+        <span class="label">Fassadensysteme</span>
+        <h2 class="h2" id="systems-title">Drei Systeme. <span class="accent">Ein Partner.</span></h2>
+      </div>
+      <p class="lead">Von der Idee über das Engineering bis zur Montage: Fahrni plant und baut Gebäudehüllen aus einer Hand.</p>
+    </div>
+    <a class="tile system" href="https://www.fahrni.com/de/" target="_blank" rel="noopener">
+      <div class="pat pat--alu" aria-hidden="true"></div>
+      <div class="system-body">
+        <span class="tag">System 1</span>
+        <div class="system-row"><h3 class="h3">Aluminiumfassaden</h3><span class="round-arrow" aria-hidden="true">→</span></div>
+        <p>Leicht, langlebig und frei formbar, für prägnante Fassadenbilder mit schlanken Profilen.</p>
+      </div>
+    </a>
+    <a class="tile system" href="https://www.fahrni.com/de/" target="_blank" rel="noopener">
+      <div class="pat pat--glas" aria-hidden="true"></div>
+      <div class="system-body">
+        <span class="tag">System 2</span>
+        <div class="system-row"><h3 class="h3">Glasfassaden</h3><span class="round-arrow" aria-hidden="true">→</span></div>
+        <p>Transparente Gebäudehüllen mit viel Tageslicht und hohen Anforderungen an Wärme- und Sonnenschutz.</p>
+      </div>
+    </a>
+    <a class="tile system" href="https://www.fahrni.com/de/" target="_blank" rel="noopener">
+      <div class="pat pat--element" aria-hidden="true"></div>
+      <div class="system-body">
+        <span class="tag">System 3</span>
+        <div class="system-row"><h3 class="h3">Elementfassaden</h3><span class="round-arrow" aria-hidden="true">→</span></div>
+        <p>Im Werk vorgefertigte Module für kurze Montagezeiten und gleichbleibende Qualität auf der Baustelle.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- UNTERNEHMEN -->
+  <section class="grid" id="unternehmen" aria-labelledby="about-title">
+    <div class="tile about-main">
+      <span class="label">Unternehmen</span>
+      <h2 class="h2" id="about-title"><span class="light">Vom Einzelunternehmen zum</span> führenden Fassadenbauer <span class="light">der Schweiz.</span></h2>
+      <a class="btn btn--accent" href="https://www.fahrni.com/de/unternehmen/" target="_blank" rel="noopener" style="justify-self: start">Mehr über Fahrni <span class="dot" aria-hidden="true">→</span></a>
+    </div>
+    <div class="about-side">
+      <div class="tile">
+        <span class="label">Engineering</span>
+        <p class="lead">Auf Basis hochstehenden Engineerings realisieren wir Fassadenkonzepte mit Sicherheitsstandards, optimaler Qualität und garantierter Funktionalität.</p>
+      </div>
+      <div class="tile">
+        <span class="label">Kompetenzen</span>
+        <div class="pill-list">
+          <span>Aluminiumfassaden</span><span>Glasfassaden</span><span>Elementfassaden</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="grid" id="news" aria-labelledby="news-title">
+    <div class="tile section-head">
+      <div>
+        <span class="label">News</span>
+        <h2 class="h2" id="news-title">Neue Aufträge</h2>
+      </div>
+      <a class="btn btn--ghost" href="https://www.fahrni.com/de/news/" target="_blank" rel="noopener">Alle News <span class="dot" aria-hidden="true">→</span></a>
+    </div>
+    <a class="tile news" href="https://www.fahrni.com/de/news/39-neuer-auftrag-h66-mullerbrau-areal-baden/" target="_blank" rel="noopener">
+      <div class="pat pat--glas" aria-hidden="true"></div>
+      <div class="news-body">
+        <div class="news-meta"><span>Neuer Auftrag</span><span>Baden</span></div>
+        <div class="news-row"><h3 class="h3">H66 Müllerbräu-Areal</h3><span class="round-arrow" aria-hidden="true">↗</span></div>
+        <p>Fahrni baut die Fassade des Projektes H66.</p>
+      </div>
+    </a>
+    <a class="tile news" href="https://www.fahrni.com/de/news/38-neuer-auftrag-domus-liebruti-kaiseraugst/" target="_blank" rel="noopener">
+      <div class="pat pat--element" aria-hidden="true"></div>
+      <div class="news-body">
+        <div class="news-meta"><span>Neuer Auftrag</span><span>Kaiseraugst</span></div>
+        <div class="news-row"><h3 class="h3">DOMUS Liebrüti</h3><span class="round-arrow" aria-hidden="true">↗</span></div>
+        <p>Fahrni baut die Fassade des Projektes DOMUS Liebrüti.</p>
+      </div>
+    </a>
+    <a class="tile news" href="https://www.fahrni.com/de/news/37-neuer-auftrag-omu-93-bern/" target="_blank" rel="noopener">
+      <div class="pat pat--alu" aria-hidden="true"></div>
+      <div class="news-body">
+        <div class="news-meta"><span>Neuer Auftrag</span><span>Bern</span></div>
+        <div class="news-row"><h3 class="h3">OMU 93</h3><span class="round-arrow" aria-hidden="true">↗</span></div>
+        <p>Fahrni baut die Fassade des Projektes OMU 93.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- JOBS -->
+  <section class="grid" id="jobs" aria-labelledby="jobs-title">
+    <div class="tile tile--night jobs-main">
+      <span class="label">Jobs</span>
+      <div class="stack">
+        <h2 class="h2" id="jobs-title">Bauen Sie mit Fahrni.</h2>
+        <p class="lead">Fassaden entstehen im Team. Lernen Sie uns kennen und finden Sie Ihre Stelle.</p>
+      </div>
+      <a class="btn btn--light" href="https://www.fahrni.com/de/jobs/" target="_blank" rel="noopener" style="justify-self: start">Zu den Jobs <span class="dot" aria-hidden="true">→</span></a>
+    </div>
+    <div class="jobs-steps">
+      <a class="step" href="https://www.fahrni.com/de/jobs/" target="_blank" rel="noopener"><span><small>Schritt 1</small><strong>Offene Stellen ansehen</strong></span><span class="round-arrow" aria-hidden="true">→</span></a>
+      <a class="step" href="https://www.fahrni.com/de/unternehmen/" target="_blank" rel="noopener"><span><small>Schritt 2</small><strong>Fahrni kennenlernen</strong></span><span class="round-arrow" aria-hidden="true">→</span></a>
+      <a class="step" href="https://www.fahrni.com/de/jobs/" target="_blank" rel="noopener"><span><small>Schritt 3</small><strong>Direkt bewerben</strong></span><span class="round-arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="grid" id="kontakt" aria-labelledby="contact-title">
+    <div class="tile contact-main">
+      <span class="label">Kontakt</span>
+      <h2 class="h2" id="contact-title">Haben Sie ein Fassaden&shy;projekt?</h2>
+      <p class="lead">Sprechen Sie mit uns. Gemeinsam finden wir die passende Lösung für Ihre Gebäudehülle.</p>
+    </div>
+    <div class="contact-cards">
+      <div class="tile contact-card">
+        <span>Adresse</span>
+        <p>Fahrni Fassadensysteme AG<br>Bernstrasse 84, CH-3250 Lyss</p>
+      </div>
+      <div class="tile contact-card">
+        <span>Telefon</span>
+        <div class="inline">
+          <a class="big" href="tel:+41323872525" id="phone">+41 32 387 25 25</a>
+          <button class="copy-btn" type="button" id="copy-phone">Nummer kopieren</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="page footer">
+  <div class="tile tile--night">
+    <div class="footer-top">
+      <a class="logo" href="#top" aria-label="Zur Startseite">
+        <span class="logo-mark" aria-hidden="true">F</span>
+        <span class="logo-name">FAHRNI<small>Fassadensysteme AG</small></span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="#fassaden">Fassaden</a>
+        <a href="#unternehmen">Unternehmen</a>
+        <a href="#news">News</a>
+        <a href="#jobs">Jobs</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>Fahrni Fassadensysteme AG · Bernstrasse 84 · CH-3250 Lyss · +41 32 387 25 25</span>
+      <span><em>Konzeptentwurf: Bilder durch Fassadenmuster ersetzt.</em></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    // Burger-Menü
+    var burger = document.getElementById("burger");
+    var label = document.getElementById("burger-label");
+    var menu = document.getElementById("menu");
+    function setMenu(open) {
+      if (open) {
+        menu.hidden = false;
+        void menu.offsetWidth;
+        document.body.classList.add("menu-open");
+      } else {
+        document.body.classList.remove("menu-open");
+        menu.hidden = true;
+      }
+      burger.setAttribute("aria-expanded", String(open));
+      label.textContent = open ? "Schliessen" : "Menü";
+    }
+    burger.addEventListener("click", function () { setMenu(menu.hidden); });
+    menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) { setMenu(false); burger.focus(); } });
+
+    // Hero: Fassadensystem wechseln
+    var captions = {
+      alu: ["Aluminiumfassaden", "Schlanke Profile, präzise Fugenbilder."],
+      glas: ["Glasfassaden", "Transparenz und Tageslicht für die Gebäudehülle."],
+      element: ["Elementfassaden", "Vorgefertigt im Werk, schnell montiert."]
+    };
+    var tabs = document.querySelectorAll(".seg button");
+    var panels = document.querySelectorAll("#hero-stage .pat");
+    function show(type) {
+      tabs.forEach(function (t) { t.setAttribute("aria-selected", String(t.dataset.type === type)); });
+      panels.forEach(function (p) {
+        var on = p.dataset.type === type;
+        p.classList.toggle("is-shown", on);
+        p.classList.remove("is-lit");
+        if (on) { void p.offsetWidth; p.classList.add("is-lit"); }
+      });
+      document.getElementById("cap-title").textContent = captions[type][0];
+      document.getElementById("cap-text").textContent = captions[type][1];
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { show(t.dataset.type); });
+      t.addEventListener("keydown", function (e) {
+        var dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!dir) return;
+        var next = tabs[(i + dir + tabs.length) % tabs.length];
+        next.focus(); show(next.dataset.type);
+      });
+    });
+
+    // Telefonnummer kopieren
+    var copyBtn = document.getElementById("copy-phone");
+    copyBtn.addEventListener("click", function () {
+      var phone = document.getElementById("phone");
+      function done(ok) {
+        copyBtn.textContent = ok ? "Kopiert" : "Markiert";
+        setTimeout(function () { copyBtn.textContent = "Nummer kopieren"; }, 1800);
+      }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(phone);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done(false);
+      }
+      try { navigator.clipboard.writeText(phone.textContent.trim()).then(function () { done(true); }, fallback); }
+      catch (e) { fallback(); }
+    });
+  })();
+</script>
+<!--ARTIFACT-END-->
+</body>
+</html>
