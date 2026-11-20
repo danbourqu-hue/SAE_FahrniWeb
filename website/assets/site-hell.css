@@ -37,8 +37,8 @@
 
   /* Lichtstärke: hier zentral dämpfen oder verstärken */
   --light-face: .06;     /* Fläche unter dem Kegel */
-  --light-edge: .22;     /* Kante beim Hover */
   --light-halo: .07;     /* Cursor-Halo */
+  --edge-hover: rgba(255, 255, 255, .42);  /* Rand beim Hovern */
 
   --radius: 22px;
   --gap: 14px;
@@ -116,17 +116,12 @@ section + section { margin-top: clamp(56px, 8vw, 110px); }
   transition: --r .9s var(--ease), --o .7s var(--ease), transform .6s var(--ease);
 }
 a.tile:hover, .tile[data-light]:hover, .tile:focus-within, .tile.is-touched { --r: 340px; --o: 1; }
-a.tile:hover { transform: translateY(-2px); }
-.tile::before {
+.tile::before {  /* Rand: rundum gleich stark, beim Hovern gleichmässig heller */
   content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none;
-  border-radius: inherit; padding: 1px;
-  background:
-    radial-gradient(calc(240px + var(--r) * .5) circle at var(--x) var(--y), rgba(255, 255, 255, calc(.1 + var(--light-edge) * var(--o))), transparent 62%),
-    linear-gradient(var(--line), var(--line));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  border-radius: inherit; box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow .5s var(--ease);
 }
+a.tile:hover::before, .tile[data-light]:hover::before, .tile:focus-within::before, .tile.is-touched::before { box-shadow: inset 0 0 0 1px var(--edge-hover); }
 .tile::after {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(calc(180px + var(--r)) circle at var(--x) var(--y),
@@ -155,7 +150,7 @@ a.tile:hover .media img, .tile[data-light]:hover .media img, .tile.is-touched .m
   transition: transform .5s var(--ease), background .3s, border-color .3s, color .3s;
 }
 .arrow svg { width: 17px; height: 17px; }
-a.tile:hover .arrow { background: #fff; color: #000; border-color: #fff; transform: rotate(-45deg); }
+a.tile:hover .arrow, a.tile:has(> .media):hover .arrow { background: #fff; color: var(--blue); border-color: #fff; transform: rotate(-45deg); }
 
 .btn {
   display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px;
@@ -388,7 +383,6 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 /* Einblenden */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
 .reveal.is-in { opacity: 1; transform: none; }
-a.tile.reveal.is-in:hover { transform: translateY(-2px); }
 
 /* Responsive */
 @media (max-width: 1180px) {
@@ -518,7 +512,7 @@ a.tile.reveal.is-in:hover { transform: translateY(-2px); }
 .sl-controls { display: flex; align-items: center; gap: 10px; margin-top: 22px; }
 .sl-btn { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--line); background: var(--tile); color: var(--text); display: grid; place-items: center; cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
 .sl-btn svg { width: 18px; height: 18px; }
-.sl-btn:hover { background: var(--text); color: var(--bg); }
+.sl-btn:hover { background: #fff; color: var(--blue); border-color: #fff; }
 .sl-dots { display: flex; gap: 6px; margin: 0 8px; }
 .sl-dot { width: 28px; height: 28px; border: 0; background: none; padding: 0; cursor: pointer; display: grid; place-items: center; }
 .sl-dot i { display: block; width: 10px; height: 4px; border-radius: 4px; background: var(--faint); transition: width .4s var(--ease), background .3s; }
@@ -563,7 +557,7 @@ a.tile.reveal.is-in:hover { transform: translateY(-2px); }
   --faint: #565b60;
   --blue-deep: #000e66;
   --light-face: .05;
-  --light-edge: .45;
+  --edge-hover: rgba(0, 20, 137, .45);
 }
 body { background: var(--bg); color: var(--text); }
 :focus-visible { outline-color: var(--blue); }
@@ -581,17 +575,13 @@ body { background: var(--bg); color: var(--text); }
 /* Kacheln */
 .tile { box-shadow: 0 1px 2px rgba(17, 19, 22, .04); transition: --r .9s var(--ease), --o .7s var(--ease), transform .6s var(--ease), box-shadow .6s var(--ease); }
 a.tile:hover, .tile[data-light]:hover { box-shadow: 0 22px 48px -24px rgba(0, 20, 137, .28); }
-.tile::before {
-  background:
-    radial-gradient(calc(240px + var(--r) * .5) circle at var(--x) var(--y), rgba(0, 20, 137, calc(.06 + var(--light-edge) * var(--o))), transparent 62%),
-    linear-gradient(var(--line), var(--line));
-}
 .tile::after {
   background: radial-gradient(calc(180px + var(--r)) circle at var(--x) var(--y),
     rgba(0, 20, 137, calc(.01 + var(--light-face) * .5 * var(--o))) 0%, transparent 70%);
 }
 .arrow { border-color: rgba(17, 19, 22, .18); background: rgba(255, 255, 255, .9); color: var(--text); }
-a.tile:hover .arrow { background: var(--blue); color: #fff; border-color: var(--blue); }
+a.tile:hover .arrow, a.tile:has(> .media):hover .arrow { background: #fff; color: var(--blue); border-color: var(--blue); }
+a.tile:has(> .media):hover .arrow { border-color: #fff; }
 
 /* Bildkacheln: Text weiss auf dunklem Verlauf (Kontrast unabhängig vom Foto) */
 .tile:has(> .media) { color: #fff; background: #2a2c2f; }
@@ -711,7 +701,7 @@ a.tile:hover .arrow { background: var(--blue); color: #fff; border-color: var(--
 .sl-todo { color: #8a4b00; background: #fff3d6; padding: 2px 6px; border-radius: 4px; }
 .sl-tags li { background: #fff; color: var(--muted); border-color: rgba(17,19,22,.14); }
 .sl-btn { background: #fff; border-color: rgba(17,19,22,.16); }
-.sl-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.sl-btn:hover { background: #fff; color: var(--blue); border-color: var(--blue); }
 .sl-dot[aria-current="true"] i { background: var(--blue); }
 .sl-dot i { background: #6d7474; }
 .sl-thumb[aria-current="true"] { outline-color: var(--blue); }

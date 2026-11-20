@@ -19,7 +19,7 @@
   --faint: #565b60;
   --blue-deep: #000e66;
   --light-face: .05;
-  --light-edge: .45;
+  --edge-hover: rgba(0, 20, 137, .45);
 }
 body { background: var(--bg); color: var(--text); }
 :focus-visible { outline-color: var(--blue); }
@@ -37,17 +37,13 @@ body { background: var(--bg); color: var(--text); }
 /* Kacheln */
 .tile { box-shadow: 0 1px 2px rgba(17, 19, 22, .04); transition: --r .9s var(--ease), --o .7s var(--ease), transform .6s var(--ease), box-shadow .6s var(--ease); }
 a.tile:hover, .tile[data-light]:hover { box-shadow: 0 22px 48px -24px rgba(0, 20, 137, .28); }
-.tile::before {
-  background:
-    radial-gradient(calc(240px + var(--r) * .5) circle at var(--x) var(--y), rgba(0, 20, 137, calc(.06 + var(--light-edge) * var(--o))), transparent 62%),
-    linear-gradient(var(--line), var(--line));
-}
 .tile::after {
   background: radial-gradient(calc(180px + var(--r)) circle at var(--x) var(--y),
     rgba(0, 20, 137, calc(.01 + var(--light-face) * .5 * var(--o))) 0%, transparent 70%);
 }
 .arrow { border-color: rgba(17, 19, 22, .18); background: rgba(255, 255, 255, .9); color: var(--text); }
-a.tile:hover .arrow { background: var(--blue); color: #fff; border-color: var(--blue); }
+a.tile:hover .arrow, a.tile:has(> .media):hover .arrow { background: #fff; color: var(--blue); border-color: var(--blue); }
+a.tile:has(> .media):hover .arrow { border-color: #fff; }
 
 /* Bildkacheln: Text weiss auf dunklem Verlauf (Kontrast unabhängig vom Foto) */
 .tile:has(> .media) { color: #fff; background: #2a2c2f; }
@@ -167,7 +163,7 @@ a.tile:hover .arrow { background: var(--blue); color: #fff; border-color: var(--
 .sl-todo { color: #8a4b00; background: #fff3d6; padding: 2px 6px; border-radius: 4px; }
 .sl-tags li { background: #fff; color: var(--muted); border-color: rgba(17,19,22,.14); }
 .sl-btn { background: #fff; border-color: rgba(17,19,22,.16); }
-.sl-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.sl-btn:hover { background: #fff; color: var(--blue); border-color: var(--blue); }
 .sl-dot[aria-current="true"] i { background: var(--blue); }
 .sl-dot i { background: #6d7474; }
 .sl-thumb[aria-current="true"] { outline-color: var(--blue); }

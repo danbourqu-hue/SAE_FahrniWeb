@@ -29,7 +29,7 @@ Texte in `content/content.json` oder Gestaltung in `src/` anpassen, dann:
 python3 build.py
 ```
 
-Die Lichtstärke des Leuchtkegels lässt sich oben in `src/site.css` über `--light-face`, `--light-edge` und `--light-halo` einstellen.
+Die Lichtstärke des Leuchtkegels lässt sich oben in `src/site.css` über `--light-face` und `--light-halo` einstellen, die Randfarbe beim Hovern über `--edge-hover`.
 
 ## Social Media
 
