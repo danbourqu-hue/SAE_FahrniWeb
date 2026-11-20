@@ -79,23 +79,21 @@ def header(prefix, active):
 <nav class="menu" id="menu" aria-label="Menü">{menu}</nav>"""
 
 def footer(prefix):
-    loc = C["kontakt"]["locations"]
-    locs = "".join(f"<li>{E(l['name'])}: {E(l['address'][-1].replace('CH-',''))}</li>" for l in loc)
-    return f"""<footer class="footer"><div class="wrap">
-  <div class="grid"><div class="tile t-video reveal">
-    <div class="media"><video id="footer-video" muted playsinline loop preload="metadata" poster="{prefix}assets/video/footer-16x9.jpg" data-poster-mobile="{prefix}assets/video/footer-9x16.jpg" aria-label="FAHRNI Footer-Animation mit Logo, QR-Code und Standorten">
-      <source src="{prefix}assets/video/footer-9x16.mp4" type="video/mp4" media="(max-width: 640px)">
-      <source src="{prefix}assets/video/footer-16x9.mp4" type="video/mp4"></video></div>
-    <button class="play" id="video-toggle" aria-label="Animation pausieren">{ic('pause')}</button>
-  </div></div>
+    sites_html = "".join(
+        f'<li><b>{E(l["name"])}</b><br>{"<br>".join(E(x) for x in l["address"])}'
+        + (f'<br><a href="tel:{re.sub(r"[^0-9+]", "", l["tel"])}">{E(l["tel"])}</a>' if l["tel"] else "") + "</li>"
+        for l in C["kontakt"]["locations"])
+    return f"""<footer class="footer"><div class="foot-band"><div class="wrap">
   <div class="foot-grid">
-    <div><img src="{prefix}assets/img/logo-dunkel.png" alt="FAHRNI façade systems" width="720" height="282"><p class="claim-text">Praktisch schön und effizient, wir verhelfen Funktionalität und einzigartigem Design zum Leben.</p></div>
+    <div class="foot-brand"><img src="{prefix}assets/img/logo-footer.png" alt="FAHRNI façade systems" width="720" height="282">
+      <p class="claim-text">Praktisch schön und effizient, wir verhelfen Funktionalität und einzigartigem Design zum Leben.</p>
+      <a class="foot-phone" href="{TEL}">{PHONE}</a></div>
     <div><h4>Seiten</h4><ul>{''.join(f'<li><a href="{prefix}{k}.html">{v}</a></li>' for k, v in NAV)}</ul></div>
     <div><h4>Unternehmen</h4><ul><li><a href="{prefix}prinzipien.html">Prinzipien</a></li><li><a href="{prefix}presse.html">Presse</a></li><li><a href="{prefix}datenschutz.html">Datenschutz</a></li><li><a href="{prefix}beschaffungsbedingungen.html">Allgemeine Beschaffungsbedingungen</a></li></ul></div>
-    <div><h4>Kontakt</h4><ul><li>Fahrni Fassadensysteme AG</li><li>Bernstrasse 84, CH-3250 Lyss</li><li><a href="{TEL}">T {PHONE}</a></li></ul></div>
+    <div><h4>Standorte</h4><ul class="foot-sites">{sites_html}</ul></div>
   </div>
   <div class="foot-base"><span>© Fahrni Fassadensysteme AG · <a class="theme-switch" href="{prefix}{'../' if HELL else 'hell/'}{CUR['path']}">{'Dunkle Version ansehen' if HELL else 'Helle Version ansehen'}</a></span><span>Website-Entwurf im neuen Corporate Design · Inhalte von fahrni.com</span></div>
-</div></footer>"""
+</div></div></footer>"""
 
 def page(path, title, body, active="", desc=""):
     CUR["path"] = path

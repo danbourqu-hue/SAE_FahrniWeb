@@ -182,3 +182,8 @@ a.tile.tile-dark:hover .arrow { background: #fff; color: var(--blue); border-col
 .tile-dark .status i { background: #5fd38a; }
 .tile-dark .sl-todo { color: #ffe08a; background: none; padding: 0; }
 .tile-dark::after { background: radial-gradient(calc(180px + var(--r)) circle at var(--x) var(--y), rgba(255, 255, 255, calc(.01 + .05 * var(--o))) 0%, transparent 70%); }
+
+/* Fusszeile hell: Anthrazit-Band bleibt, Farben aus site.css */
+.foot-band .foot-grid { color: rgba(255, 255, 255, .8); }
+.foot-band .foot-grid a:hover { color: #fff; }
+.foot-band .foot-base { border-top-color: rgba(255, 255, 255, .18); }
