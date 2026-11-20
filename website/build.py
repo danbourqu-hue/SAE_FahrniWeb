@@ -13,6 +13,8 @@ HELL = len(sys.argv) > 1 and sys.argv[1] == "hell"
 OUT = HERE / "hell" if HELL else HERE
 CUR = {"path": "index.html"}
 C = json.loads((HERE / "content/content.json").read_text(encoding="utf-8"))
+S = json.loads((HERE / "content/social.json").read_text(encoding="utf-8"))
+CH = {c["id"]: c for c in S["channels"]}
 IMG = json.loads((HERE / "content/images.json").read_text(encoding="utf-8"))
 E = html.escape
 PHONE = "+41 32 387 25 25"
@@ -61,7 +63,7 @@ def arrow(kind="arrow"): return f'<span class="arrow" aria-hidden="true"><svg><u
 def ic(kind="arrow"): return f'<svg aria-hidden="true"><use href="#i-{kind}"/></svg>'
 
 NAV = [("leistungen", "Leistungen"), ("referenzen", "Referenzen"), ("unternehmen", "Unternehmen"),
-       ("news", "News"), ("jobs", "Jobs"), ("kontakt", "Kontakt")]
+       ("news", "News"), ("jobs", "Jobs"), ("social", "Social"), ("kontakt", "Kontakt")]
 
 def header(prefix, active):
     nav = "".join(f'<a href="{prefix}{k}.html"' + (' aria-current="page"' if k == active else "") + f">{v}</a>" for k, v in NAV[:-1])
@@ -170,6 +172,10 @@ def sites(prefix):
                    + (f'<p style="margin-top:10px"><a class="tel" href="{telh}">{E(tel)}</a></p>' if tel else "") + "</div></article>")
     return "".join(out)
 
+def post_video(post, p):
+    if post.get("video"): return f"{p}assets/{post['video']}", f"{p}assets/{post['poster']}"
+    return f"{p}assets/video/social/{post['id']}.mp4", f"{p}assets/video/social/{post['id']}.jpg"
+
 # ---------------------------------------------------------------- Startseite
 refs = C["referenzen"]["items"]; news = C["news"]; jobs = C["jobs"]; L = C["leistungen"]["sections"]
 teaser_img = {t["href"]: t["img"] for t in C["home"]["teasers"]}
@@ -242,6 +248,11 @@ def home(p):
 <section aria-labelledby="n-title">
   <div class="section-head reveal"><h2 id="n-title">Neue Aufträge.</h2><a class="btn btn-ghost" href="{p}news.html">Alle News {ic()}</a></div>
   <div class="grid">{''.join(news_tile(n, p, 'span-4', i*.06) for i, n in enumerate(news[:3]))}</div>
+</section>
+
+<section aria-labelledby="sm-title">
+  <div class="section-head reveal"><h2 id="sm-title">Social Media. <span>Neu aus unseren Kanälen.</span></h2><a class="btn btn-ghost" href="{p}social.html">Alle Beiträge {ic()}</a></div>
+  <div class="grid">{"".join(f'<a class="tile span-4 sm-tile reveal" style="--d:{k*.06}s" href="{p}social.html#post-{post["id"]}"><div class="media"><video muted playsinline loop preload="none" poster="{post_video(post, p)[1]}"><source src="{post_video(post, p)[0]}" type="video/mp4"></video></div><div class="tile-top"><span class="caption">{E(CH[post["channel"]]["name"])}</span>{arrow()}</div><div><h3>{E(post["title"])}</h3><p>{E(post["text"][:96].rsplit(" ", 1)[0])} …</p></div></a>' for k, post in enumerate(S["posts"][:3]))}</div>
 </section>
 
 <section aria-labelledby="j-title">
@@ -318,16 +329,19 @@ def unternehmen(p):
                      f'<span class="tl-dot" aria-hidden="true"></span><span class="tl-link" aria-hidden="true"></span>'
                      f'<article class="tile tl-card{" tile-blue" if last else ""}" data-light><span class="yr">{y["year"]}</span>'
                      f'<div>{"".join(f"<p>{E(t)}</p>" for t in y["text"])}</div></article></li>')
-    years = (f'<div class="tl" id="tl"><div class="tl-axis" aria-hidden="true"><div class="tl-fill"></div>'
-             f'<div class="tl-head"><span id="tl-year">{T[0]["year"]}</span></div></div>'
-             f'<ol class="tl-list">{"".join(items)}</ol></div>')
+    span = int(T[-1]["year"]) - int(T[0]["year"])
+    years = (f'<div class="tl" id="tl" aria-labelledby="g-title"><div class="tl-sticky">'
+             f'<div class="tl-top wrap"><div class="section-head" style="margin:0"><h2 id="g-title">Geschichte. <span>{T[0]["year"]} bis heute.</span></h2>'
+             f'<p>{len(T)} Meilensteine aus {span} Jahren Fassadenbau. Scrollen Sie, die Zeitachse läuft mit.</p></div>'
+             f'<div class="tl-progress" aria-hidden="true"><span id="tl-year">{T[0]["year"]}</span><i><b></b></i><span>{T[-1]["year"]}</span></div></div>'
+             f'<div class="tl-viewport"><div class="tl-track"><div class="tl-axis" aria-hidden="true"><div class="tl-fill"></div><div class="tl-head"></div></div>'
+             f'<ol class="tl-list">{"".join(items)}</ol></div></div></div></div>')
     pr = C["prinzipien"]["paras"]
     return (head(p, "Unternehmen", U["title"], [("Unternehmen", None)])
             + f'<section><div class="grid">'
             + f'<a class="tile t-about span-7 tall reveal" href="{p}prinzipien.html"><p class="eyebrow"><b>Prinzipien</b></p><h2 style="font-size:clamp(30px,3.2vw,48px);max-width:22ch">{E(pr[0])}</h2><span class="link-line">Unsere Prinzipien {ic()}</span></a>'
             + f'<a class="tile span-5 tall reveal" style="--d:.08s" href="{p}presse.html"><div class="tile-top"><span class="eyebrow"><b>Presse</b></span>{arrow()}</div><div><h3>{len(C["presse"])} Fachberichte</h3><p>Projekte von Fahrni in der Fachpresse.</p></div></a>'
-            + f'</div></section><section aria-labelledby="g-title"><div class="section-head reveal"><h2 id="g-title">Geschichte. <span>{U["timeline"][0]["year"]} bis heute.</span></h2><p>{len(U["timeline"])} Meilensteine aus {int(U["timeline"][-1]["year"]) - int(U["timeline"][0]["year"])} Jahren Fassadenbau.</p></div>'
-            + years + '</section>')
+            + f'</div></section><section class="tl-section">' + years + '</section>')
 page("unternehmen.html", "Unternehmen · FAHRNI", unternehmen, "unternehmen", U["title"])
 
 def prinzipien(p):
@@ -387,6 +401,47 @@ for j in jobs:
                 + f'<div class="facts"><div class="tile tile-blue" data-light><span class="eyebrow">Bewerbung</span><h3>Fahrni Fassadensysteme AG</h3><p>Bernstrasse 84, 3250 Lyss<br><a href="{TEL}">Tel. 032 387 25 25</a></p></div>'
                 + f'<a class="tile" href="{p}jobs.html"><div class="tile-top"><span class="eyebrow">Weitere Stellen</span>{arrow()}</div><h3>Alle offenen Stellen</h3></a></div></div>')
     page(f"jobs/{j['slug']}.html", f"{j['title']} · Jobs · FAHRNI", job_page, "jobs", j["title"])
+
+
+# ---------------------------------------------------------------- Social Media
+def words(text):
+    return " ".join(f'<span class="w" style="--i:{k}">{E(w)}</span>' for k, w in enumerate(text.split()))
+
+def social(p):
+    posts = S["posts"]; n = len(posts)
+    slides = []
+    for k, post in enumerate(posts):
+        ch = CH[post["channel"]]; src, poster = post_video(post, p)
+        orig = (f'<a class="btn btn-ghost" href="{E(post["url"])}" target="_blank" rel="noopener">Auf {E(ch["name"])} ansehen {ic("out")}</a>' if post["url"]
+                else f'<span class="sl-todo">Link zum Originalbeitrag auf {E(ch["name"])} ergänzen</span>')
+        slides.append(
+            f'<article class="sl-slide" id="post-{post["id"]}" role="group" aria-roledescription="Beitrag" aria-label="{k+1} von {n}: {E(post["title"])}" data-i="{k}">'
+            f'<div class="sl-phone tile" data-light><video muted playsinline preload="metadata" poster="{poster}" aria-label="Video zum Beitrag {E(post["title"])}"><source src="{src}" type="video/mp4"></video>'
+            f'<div class="sl-bar" aria-hidden="true"><b></b></div><span class="sl-chan">{E(ch["name"])}</span></div>'
+            f'<div class="sl-copy"><p class="eyebrow"><b>{E(ch["name"])}</b> · {E(post["date"])}</p>'
+            f'<h2 class="sl-title">{E(post["title"])}</h2><p class="sl-text">{words(post["text"])}</p>'
+            f'<ul class="sl-tags">{"".join(f"<li>#{E(t)}</li>" for t in post["tags"])}</ul>'
+            f'<div class="sl-actions"><a class="btn btn-primary" href="{p}{post["page"]}">Mehr dazu {ic()}</a>{orig}</div></div></article>')
+    dots = "".join(f'<button class="sl-dot" type="button" data-go="{k}" aria-label="Beitrag {k+1}: {E(post["title"])}"><i></i></button>' for k, post in enumerate(posts))
+    thumbs = "".join(f'<button class="sl-thumb tile" type="button" data-go="{k}" aria-label="Beitrag {k+1} zeigen: {E(post["title"])}">'
+                     f'<div class="media"><img src="{post_video(post, p)[1]}" alt="" loading="lazy"></div>'
+                     f'<span class="sl-thumb-ch">{E(CH[post["channel"]]["name"])}</span><span class="sl-thumb-t">{E(post["title"])}</span></button>' for k, post in enumerate(posts))
+    chans = "".join(
+        f'<{"a" if c["url"] else "div"} class="tile span-4 reveal" style="--d:{k*.06}s"' + (f' href="{E(c["url"])}" target="_blank" rel="noopener"' if c["url"] else " data-light") + '>'
+        f'<div class="tile-top"><span class="eyebrow"><b>{E(c["name"])}</b></span>{arrow("out") if c["url"] else ""}</div>'
+        f'<div><h3>{E(c["handle"])}</h3><p>' + ("Folgen" if c["url"] else '<span class="sl-todo">Link zum Kanal ergänzen</span>') + f'</p></div></{"a" if c["url"] else "div"}>'
+        for k, c in enumerate(S["channels"]))
+    return (head(p, "Social Media", "Neue Aufträge, Referenzen und Einblicke in Werkstatt und Montage, direkt aus unseren Kanälen.", [("Social Media", None)])
+            + f'<section class="sl" id="slider" aria-roledescription="Karussell" aria-label="Social-Media-Beiträge" tabindex="-1">'
+            + f'<div class="sl-track" id="sl-track">{"".join(slides)}</div>'
+            + f'<div class="sl-controls"><button class="sl-btn" type="button" id="sl-prev" aria-label="Vorheriger Beitrag">{ic("back")}</button>'
+            + f'<button class="sl-btn" type="button" id="sl-play" aria-label="Automatisches Weiterschalten pausieren">{ic("pause")}</button>'
+            + f'<div class="sl-dots">{dots}</div><span class="sl-count" id="sl-count" aria-live="polite">01 / {n:02d}</span>'
+            + f'<button class="sl-btn" type="button" id="sl-next" aria-label="Nächster Beitrag">{ic()}</button></div></section>'
+            + f'<section aria-labelledby="all-title"><div class="section-head reveal"><h2 id="all-title">Alle Beiträge.</h2></div><div class="sl-thumbs">{thumbs}</div></section>'
+            + f'<section aria-labelledby="ch-title"><div class="section-head reveal"><h2 id="ch-title">Folgen Sie uns.</h2><p>{E(S["channels"][0]["name"])}, {E(S["channels"][1]["name"])} und {E(S["channels"][2]["name"])}.</p></div><div class="grid">{chans}</div></section>'
+            + '<p class="sl-note">Hinweis zum Entwurf: Die Beiträge sind Beispiele aus vorhandenen Inhalten von fahrni.com und werden durch echte Posts ersetzt.</p>')
+page("social.html", "Social Media · FAHRNI", social, "social", "Beiträge der Fahrni Fassadensysteme AG aus LinkedIn, Instagram und YouTube.")
 
 # ---------------------------------------------------------------- Kontakt
 def kontakt(p):

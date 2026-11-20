@@ -1,0 +1,136 @@
+{
+ "_hinweis": "Beispielbeiträge, gebaut aus vorhandenen Inhalten von fahrni.com. Echte Posts hier ersetzen. 'url' = Link zum Originalbeitrag, leer lassen, solange es keinen gibt.",
+ "channels": [
+  {
+   "id": "linkedin",
+   "name": "LinkedIn",
+   "handle": "Fahrni Fassadensysteme AG",
+   "url": ""
+  },
+  {
+   "id": "instagram",
+   "name": "Instagram",
+   "handle": "@fahrni_facade_systems",
+   "url": ""
+  },
+  {
+   "id": "youtube",
+   "name": "YouTube",
+   "handle": "Fahrni Façade Systems",
+   "url": ""
+  }
+ ],
+ "posts": [
+  {
+   "id": "h66-baden",
+   "channel": "linkedin",
+   "date": "Neuer Auftrag",
+   "title": "H66 Müllerbräu-Areal, Baden",
+   "text": "Neuer Auftrag in Baden: Die Fahrni Fassadensysteme AG baut die Fassade des Projektes H66 auf dem Müllerbräu-Areal. Architektur: Harry Gugger Studio, Basel. Bauherr: Brauerei H. Müller AG, Baden.",
+   "tags": [
+    "Fassadenbau",
+    "Baden",
+    "NeuerAuftrag"
+   ],
+   "images": [
+    "fotos/news/h66-mullerbrau-areal-baden-8233fc.jpg"
+   ],
+   "page": "news/39-neuer-auftrag-h66-mullerbrau-areal-baden.html",
+   "url": "",
+   "seg": 7.5
+  },
+  {
+   "id": "lehrstelle-2027",
+   "channel": "instagram",
+   "date": "Jobs",
+   "title": "Lehrstelle 2027",
+   "text": "Von der Werkstatt ins Büro: kombiniere Praxis mit Planung. Für 2027 suchen wir dich für die Zusatzlehre Metallbaukonstrukteur/in EFZ in Lyss. Ausbildungsbeginn ist der 1. August 2027.",
+   "tags": [
+    "Lehrstelle",
+    "Metallbau",
+    "Lyss"
+   ],
+   "images": [
+    "fotos/seiten/jobs-fahrni-1516ca.jpg",
+    "fotos/leistungen/entwicklung-9pubkjy-19a7e8.jpg",
+    "fotos/leistungen/produktion-sucu1mb-9ca6e7.jpg"
+   ],
+   "page": "jobs/2526989900-lehrstelle-2027-zusatzlehre-metallbaukonstrukteurin-efz-in-lyss.html",
+   "url": ""
+  },
+  {
+   "id": "hbo-baden",
+   "channel": "instagram",
+   "date": "Referenz",
+   "title": "HBO Hochhaus, Baden Ost",
+   "text": "Unsere Leistungen beim neuen Eyecatcher in Baden: 300 Hebe-Schiebefenster in 19 Wohngeschossen, 1700 vertikale Lisenenprofile, 520 Fensterbankprofile und 3000 m² Blechverkleidungen.",
+   "tags": [
+    "Referenz",
+    "Hochhaus",
+    "Baden"
+   ],
+   "images": [
+    "fotos/referenzen/17592-65e6d3cf0117a-qfxrinu-fcb720.jpg",
+    "fotos/referenzen/17592-65e6d3d6aa5d9-af9a6f.jpg",
+    "fotos/referenzen/17592-65e6d3d063a57-x9hpexy-6568c6.jpg"
+   ],
+   "page": "referenzen/2024-03-15-hbo-hochhaus.html",
+   "url": ""
+  },
+  {
+   "id": "montage",
+   "channel": "linkedin",
+   "date": "Leistungen",
+   "title": "Gerüstlos montiert",
+   "text": "Elementfassaden werden mehrheitlich gerüstlos montiert. Mit einem klaren Montage- und Sicherheitskonzept verkürzt sich die Montagedauer massiv, mit entsprechenden Einsparungen an Zeit und Gesamtkosten.",
+   "tags": [
+    "Elementfassade",
+    "Montage",
+    "Engineering"
+   ],
+   "images": [
+    "fotos/leistungen/dsc-1040-604761.jpg",
+    "fotos/leistungen/logistik-9ef81e.jpg",
+    "fotos/leistungen/testanlage-vpudgra-435eda.jpg"
+   ],
+   "page": "leistungen.html#montage",
+   "url": ""
+  },
+  {
+   "id": "moveo-rolex",
+   "channel": "linkedin",
+   "date": "Referenz",
+   "title": "Moveo BR Rolex, Biel/Bienne",
+   "text": "1600 m² Elementfassade, 1300 m² Fassaden- und Deckenverkleidungen, 1800 m² Lisenen und Vorbau: die Fassade für Moveo BR in Biel/Bienne. Architektur: Gebert Architectes SA.",
+   "tags": [
+    "Referenz",
+    "Biel",
+    "Elementfassade"
+   ],
+   "images": [
+    "fotos/referenzen/moveo-rolex-bildnr-3-768a07.jpg",
+    "fotos/referenzen/moveo-rolex-bildnr-5-40137f.jpg",
+    "fotos/referenzen/moveo-rolex-bildnr-13-98c08f.jpg"
+   ],
+   "page": "referenzen/2024-12-31-moveo-br-rolex.html",
+   "url": ""
+  },
+  {
+   "id": "follow-us",
+   "channel": "instagram",
+   "date": "Fahrni Façade Systems",
+   "title": "Follow us",
+   "text": "Fassaden aus Metall und Glas, gebaut von Menschen aus Lyss, Subingen, Dietikon und Reinach. Folgen Sie uns für neue Aufträge, Referenzen und Einblicke in Werkstatt und Montage.",
+   "tags": [
+    "Fahrni",
+    "FacadeSystems",
+    "FollowUs"
+   ],
+   "images": [],
+   "video": "video/footer-9x16.mp4",
+   "poster": "video/footer-9x16.jpg",
+   "page": "kontakt.html",
+   "url": ""
+  }
+ ]
+}

@@ -16,7 +16,10 @@ Mehrseitiger Entwurf im neuen FAHRNI Corporate Design mit dem Inhalt von fahrni.
 | `content/content.json` | Inhalt von fahrni.com, strukturiert |
 | `content/images.json` | Zuordnung Original-Bild → lokale Datei |
 | `content/crawl.py`, `extract.py`, `images.py` | Skripte, mit denen der Inhalt geholt wurde |
-| `build.py` | Erzeugt alle Seiten neu |
+| `content/social.json` | Social-Media-Beiträge und Kanäle |
+| `content/make_social_videos.py` | Erzeugt die Hochformat-Videos der Beispielbeiträge |
+| `hell/` | Helle Variante (wird mit erzeugt) |
+| `build.py` | Erzeugt alle Seiten neu (dunkel und hell) |
 
 ## Ändern
 
@@ -28,7 +31,15 @@ python3 build.py
 
 Die Lichtstärke des Leuchtkegels lässt sich oben in `src/site.css` über `--light-face`, `--light-edge` und `--light-halo` einstellen.
 
+## Social Media
+
+Beiträge stehen in `content/social.json`: Kanal, Titel, Text, Hashtags, Video, Link zur passenden Seite und `url` zum Originalbeitrag.
+Ein Beitrag mit eigenem Video bekommt `"video": "video/social/<datei>.mp4"` und `"poster": "…jpg"`; ohne Video erzeugt
+`python3 content/make_social_videos.py` aus den angegebenen Bildern einen Clip im Reel-Format. Danach `python3 build.py`.
+
 ## Offen
+
+- Social Media: Die sechs Beiträge sind Beispiele aus vorhandenen Inhalten. Links zu den Kanälen und Originalbeiträgen fehlen noch (gelb markiert).
 
 - E-Mail-Adressen sind auf fahrni.com durch einen Spamschutz verborgen und fehlen hier. Sie sind gelb als «[E-Mail-Adresse ergänzen]» markiert.
 - Frutiger-Schriften brauchen für eine öffentliche Website eine Web-Lizenz.

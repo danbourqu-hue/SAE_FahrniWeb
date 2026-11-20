@@ -155,9 +155,20 @@ a.tile:hover .arrow { background: var(--blue); color: #fff; border-color: var(--
 .chip[aria-pressed="true"] small { color: rgba(255, 255, 255, .85); }
 .t-news .media img { filter: none; }
 
-/* Zeitachse hell: Blau als Akzent */
+
+
+/* Zeitachse hell */
 .tl { --tl: var(--blue); --tl-soft: rgba(0, 20, 137, .12); }
-.tl-head { color: #fff; }
 .tl-card .yr { color: var(--text); }
 .tl-now .tl-card .yr { color: var(--blue); }
 .tl-dot { background: var(--bg); border-color: #8a9090; }
+
+/* Social Media hell */
+.sl-todo { color: #8a4b00; background: #fff3d6; padding: 2px 6px; border-radius: 4px; }
+.sl-tags li { background: #fff; color: var(--muted); border-color: rgba(17,19,22,.14); }
+.sl-btn { background: #fff; border-color: rgba(17,19,22,.16); }
+.sl-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.sl-dot[aria-current="true"] i { background: var(--blue); }
+.sl-dot i { background: #6d7474; }
+.sl-thumb[aria-current="true"] { outline-color: var(--blue); }
+.sl-thumb-ch, .sl-thumb-t { color: #fff; }
