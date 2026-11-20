@@ -5,9 +5,13 @@ Quelle:  content/content.json (Inhalt von fahrni.com), content/images.json (loka
          src/site.css, src/site.js
 Ausgabe: *.html, referenzen/, news/, jobs/, assets/site.css, assets/site.js
 """
-import base64, html, json, pathlib, re
+import base64, html, json, pathlib, re, subprocess, sys
 
 HERE = pathlib.Path(__file__).parent
+# Variante: "dunkel" (Standard, Ausgabe im Hauptordner) oder "hell" (Ausgabe in hell/)
+HELL = len(sys.argv) > 1 and sys.argv[1] == "hell"
+OUT = HERE / "hell" if HELL else HERE
+CUR = {"path": "index.html"}
 C = json.loads((HERE / "content/content.json").read_text(encoding="utf-8"))
 IMG = json.loads((HERE / "content/images.json").read_text(encoding="utf-8"))
 E = html.escape
@@ -88,10 +92,11 @@ def footer(prefix):
     <div><h4>Unternehmen</h4><ul><li><a href="{prefix}prinzipien.html">Prinzipien</a></li><li><a href="{prefix}presse.html">Presse</a></li><li><a href="{prefix}datenschutz.html">Datenschutz</a></li><li><a href="{prefix}beschaffungsbedingungen.html">Allgemeine Beschaffungsbedingungen</a></li></ul></div>
     <div><h4>Kontakt</h4><ul><li>Fahrni Fassadensysteme AG</li><li>Bernstrasse 84, CH-3250 Lyss</li><li><a href="{TEL}">T {PHONE}</a></li></ul></div>
   </div>
-  <div class="foot-base"><span>© Fahrni Fassadensysteme AG</span><span>Website-Entwurf im neuen Corporate Design · Inhalte von fahrni.com</span></div>
+  <div class="foot-base"><span>© Fahrni Fassadensysteme AG · <a class="theme-switch" href="{prefix}{'../' if HELL else 'hell/'}{CUR['path']}">{'Dunkle Version ansehen' if HELL else 'Helle Version ansehen'}</a></span><span>Website-Entwurf im neuen Corporate Design · Inhalte von fahrni.com</span></div>
 </div></footer>"""
 
 def page(path, title, body, active="", desc=""):
+    CUR["path"] = path
     depth = path.count("/"); prefix = "../" * depth
     doc = f"""<!doctype html>
 <html lang="de">
@@ -117,7 +122,11 @@ def page(path, title, body, active="", desc=""):
 </body>
 </html>
 """
-    out = HERE / path; out.parent.mkdir(parents=True, exist_ok=True)
+    if HELL:  # Assets liegen eine Ebene höher und werden mit der dunklen Variante geteilt
+        doc = doc.replace(f'"{prefix}assets/', f'"{prefix}../assets/')
+        doc = doc.replace("assets/site.css", "assets/site-hell.css").replace("img/logo-dunkel.png", "img/logo-blau.png")
+        doc = doc.replace('<meta name="theme-color" content="#000000">', '<meta name="theme-color" content="#f3f4f4">')
+    out = OUT / path; out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(doc, encoding="utf-8")
 
 def head(prefix, title, lead_text="", crumbs=()):
@@ -218,8 +227,8 @@ def home(p):
       <p style="max-width:60ch">{E(intro[1] if len(intro) > 1 else '')}</p>
       <span class="link-line">Geschichte ansehen {ic()}</span>
     </a>
-    <a class="tile span-5 x-tall reveal" style="--d:.08s; background:var(--blue)" href="{p}unternehmen.html">
-      <div class="tile-top"><span class="eyebrow" style="color:rgba(255,255,255,.7)">{E(tl[0]['text'][0])}</span>{arrow()}</div>
+    <a class="tile tile-blue span-5 x-tall reveal" style="--d:.08s" href="{p}unternehmen.html">
+      <div class="tile-top"><span class="eyebrow">{E(tl[0]['text'][0])}</span>{arrow()}</div>
       <div class="big-num">{tl[-1]['year']}<small>{E(tl[-1]['text'][0])}</small></div>
     </a>
   </div>
@@ -239,9 +248,9 @@ def home(p):
   <div class="grid">
     <a class="tile span-8 x-tall reveal" href="{p}jobs.html" style="justify-content:flex-end">
       <div class="media"><img src="{img(teaser_img['/de/jobs/'], p)}" alt="" loading="lazy"></div>
-      <div style="display:grid; gap:14px; max-width:60ch"><span class="caption" style="background:var(--blue)">Jobs</span><h3 id="j-title" style="font-size:clamp(36px,4.4vw,64px)">Bauen Sie mit Fahrni.</h3><p>Offene Stellen in Produktion, Montage, Planung und Logistik.</p><span class="link-line">Offene Stellen {ic()}</span></div>
+      <div style="display:grid; gap:14px; max-width:60ch"><span class="caption accent">Jobs</span><h3 id="j-title" style="font-size:clamp(36px,4.4vw,64px)">Bauen Sie mit Fahrni.</h3><p>Offene Stellen in Produktion, Montage, Planung und Logistik.</p><span class="link-line">Offene Stellen {ic()}</span></div>
     </a>
-    <div class="tile span-4 reveal" style="--d:.08s; background:var(--tile-2)" data-light>
+    <div class="tile tile-alt span-4 reveal" style="--d:.08s" data-light>
       <span class="eyebrow"><b>{len(jobs)} offene Stellen</b></span>
       <ul class="steps">{job_list}</ul>
     </div>
@@ -318,7 +327,7 @@ def prinzipien(p):
     blocks = []
     for k in range(0, len(pr), 2):
         pic = ims[k // 2] if k // 2 < len(ims) else None
-        blocks.append(f'<div class="service"><article class="tile s-text reveal" data-light><div class="prose" style="grid-column:auto">{"".join(f"<p style=font-size:clamp(20px,2vw,28px);color:#fff>{E(x)}</p>" for x in pr[k:k+2])}</div></article>'
+        blocks.append(f'<div class="service"><article class="tile s-text reveal" data-light><div class="prose" style="grid-column:auto">{"".join(f'<p class=statement>{E(x)}</p>' for x in pr[k:k+2])}</div></article>'
                       + (f'<div class="tile s-img reveal" data-light><div class="media"><img src="{pic}" alt="" loading="lazy"></div></div>' if pic else "") + "</div>")
     return head(p, "Prinzipien", "", [("Unternehmen", "unternehmen.html"), ("Prinzipien", None)]) + "".join(blocks)
 page("prinzipien.html", "Prinzipien · FAHRNI", prinzipien, "unternehmen")
@@ -367,7 +376,7 @@ for j in jobs:
     def job_page(p, j=j):
         return (head(p, j["title"], "", [("Jobs", "jobs.html"), ("Stelle", None)])
                 + f'<div class="detail"><div class="prose prose-card tile" data-light>{fix_html(j["html"], p)}</div>'
-                + f'<div class="facts"><div class="tile" data-light style="background:var(--blue)"><span class="eyebrow" style="color:rgba(255,255,255,.75)">Bewerbung</span><h3>Fahrni Fassadensysteme AG</h3><p style="color:rgba(255,255,255,.85)">Bernstrasse 84, 3250 Lyss<br><a href="{TEL}">Tel. 032 387 25 25</a></p></div>'
+                + f'<div class="facts"><div class="tile tile-blue" data-light><span class="eyebrow">Bewerbung</span><h3>Fahrni Fassadensysteme AG</h3><p>Bernstrasse 84, 3250 Lyss<br><a href="{TEL}">Tel. 032 387 25 25</a></p></div>'
                 + f'<a class="tile" href="{p}jobs.html"><div class="tile-top"><span class="eyebrow">Weitere Stellen</span>{arrow()}</div><h3>Alle offenen Stellen</h3></a></div></div>')
     page(f"jobs/{j['slug']}.html", f"{j['title']} · Jobs · FAHRNI", job_page, "jobs", j["title"])
 
@@ -377,7 +386,7 @@ def kontakt(p):
     return (head(p, "Kontakt", lead(C["kontakt"]["lead"]), [("Kontakt", None)])
             + f'<div class="grid" style="margin-bottom:var(--gap)"><a class="tile span-8 tall reveal" href="{TEL}" style="justify-content:flex-end"><div class="media"><img src="{pic}" alt="" loading="lazy"></div>'
             + f'<div style="display:grid;gap:10px"><span class="eyebrow"><b>Hauptsitz</b> · Lyss</span><span style="font-family:var(--head);font-size:clamp(40px,5vw,76px);line-height:1">{PHONE}</span><p>Fahrni Fassadensysteme AG, Bernstrasse 84, CH-3250 Lyss</p></div></a>'
-            + f'<div class="tile span-4 tall reveal" style="--d:.08s;background:var(--blue)" data-light><span class="eyebrow" style="color:rgba(255,255,255,.75)">E-Mail</span><div><h3>Schreiben Sie uns</h3><p style="color:rgba(255,255,255,.85)"><span class="email-todo" style="color:#ffe08a">[E-Mail-Adresse ergänzen]</span></p></div></div></div>'
+            + f'<div class="tile tile-blue span-4 tall reveal" style="--d:.08s" data-light><span class="eyebrow">E-Mail</span><div><h3>Schreiben Sie uns</h3><p><span class="email-todo">[E-Mail-Adresse ergänzen]</span></p></div></div></div>'
             + f'<div class="grid">{sites(p)}</div>')
 page("kontakt.html", "Kontakt · FAHRNI", kontakt, "kontakt", lead(C["kontakt"]["lead"]))
 
@@ -386,7 +395,12 @@ fonts = {k: "data:font/otf;base64," + base64.b64encode((HERE / "assets/fonts" / 
          for k, f in (("@@FONT_HEAD@@", "FrutigerNext-Condensed-Bold.otf"), ("@@FONT_BODY@@", "Frutiger-45-Light.otf"))}
 css = (HERE / "src/site.css").read_text(encoding="utf-8")
 for k, v in fonts.items(): css = css.replace(k, v)
-(HERE / "assets/site.css").write_text(css, encoding="utf-8")
-(HERE / "assets/site.js").write_text((HERE / "src/site.js").read_text(encoding="utf-8"), encoding="utf-8")
-n = len(list(HERE.glob("*.html"))) + len(list(HERE.glob("*/*.html")))
-print(f"{n} Seiten erzeugt")
+if HELL:
+    (HERE / "assets/site-hell.css").write_text(css + "\n" + (HERE / "src/theme-hell.css").read_text(encoding="utf-8"), encoding="utf-8")
+else:
+    (HERE / "assets/site.css").write_text(css, encoding="utf-8")
+    (HERE / "assets/site.js").write_text((HERE / "src/site.js").read_text(encoding="utf-8"), encoding="utf-8")
+n = len(list(OUT.glob("*.html"))) + len(list(OUT.glob("*/*.html")))
+print(f"{'Helle' if HELL else 'Dunkle'} Variante: {n} Seiten erzeugt")
+if not HELL:
+    subprocess.run([sys.executable, __file__, "hell"], check=True)

@@ -231,6 +231,13 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 .t-blue .fa { width: 68px; height: 68px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
 .t-blue h2 { font-size: clamp(30px, 3vw, 44px); }
 .claim { display: grid; gap: 14px; }
+.tile-blue { background: var(--blue); }
+.tile-blue .eyebrow { color: rgba(255,255,255,.78); }
+.tile-blue p { color: rgba(255,255,255,.88); }
+.tile-blue .email-todo { color: #ffe08a; }
+.tile-alt { background: var(--tile-2); }
+.caption.accent { background: var(--blue); }
+.statement { font-size: clamp(20px, 2vw, 28px); color: #fff; }
 .t-contact { grid-column: span 4; background: var(--tile-2); }
 .t-contact .phone { font-family: var(--head); font-size: clamp(30px, 2.8vw, 42px); line-height: 1; }
 .status { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
@@ -424,3 +431,5 @@ a.tile.reveal.is-in:hover { transform: translateY(-2px); }
   .reveal, .fade-in { opacity: 1; transform: none; }
   .t-hero h1 .line > span, .page-head .rise > span { transform: none; }
 }
+.theme-switch { text-decoration: underline; text-underline-offset: 3px; }
+.theme-switch:hover { color: var(--text); }
