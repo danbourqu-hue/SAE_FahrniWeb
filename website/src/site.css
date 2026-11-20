@@ -476,7 +476,7 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 /* Ohne Animation: einfach seitlich wischen */
 .tl.is-static { height: auto !important; }
 .tl.is-static .tl-sticky { position: static; height: auto; padding-top: 0; }
-.tl.is-static .tl-viewport { overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 12px; }
+.tl.is-static .tl-viewport { overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); padding-bottom: 12px; }
 .tl.is-static .tl-track { transform: none !important; }
 .tl.is-static .tl-item { scroll-snap-align: start; }
 .tl.is-static .tl-card { opacity: 1; transform: none; }
@@ -535,3 +535,10 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 @media (prefers-reduced-motion: reduce) {
   .js-sl .sl-copy > *, .js-sl .sl-text .w { opacity: 1 !important; transform: none !important; animation: none !important; }
 }
+
+/* ---------- Graue Kacheln als Abwechslung ---------- */
+.tile-grey { background: #1c1e21; }
+.tile-dark { background: var(--anthrazit); color: #fff; --edge-hover: rgba(255, 255, 255, .55); }
+.tile-dark p, .tile-dark .eyebrow, .tile-dark .status { color: rgba(255, 255, 255, .86); }
+.tile-dark .eyebrow b, .tile-dark h3, .tile-dark .phone { color: #fff; }
+.tile-dark .sl-todo { color: #ffe08a; background: none; padding: 0; }

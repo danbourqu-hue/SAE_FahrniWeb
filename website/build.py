@@ -166,7 +166,7 @@ def sites(prefix):
     for i, l in enumerate(C["kontakt"]["locations"]):
         city = l["address"][-1].split(" ", 1)[-1] if l["address"] else ""
         tel = l["tel"]; telh = "tel:" + re.sub(r"[^\d+]", "", tel)
-        out.append(f'<article class="tile t-site reveal{" main" if i == 0 else ""}" style="--d:{i*.06}s" data-light>'
+        out.append(f'<article class="tile t-site reveal{" main" if i == 0 else (" tile-grey" if i % 2 else "")}" style="--d:{i*.06}s" data-light>'
                    f'<div class="tile-top"><span class="kind">{E(l["name"])}</span><span class="pin"></span></div>'
                    f'<div><h3>{E(city)}</h3><address>{"<br>".join(E(a) for a in l["address"])}</address>'
                    + (f'<p style="margin-top:10px"><a class="tel" href="{telh}">{E(tel)}</a></p>' if tel else "") + "</div></article>")
@@ -207,7 +207,7 @@ def home(p):
       <div class="tile-top"><img class="fa" src="{p}assets/img/fa-icon.png" alt="" width="68" height="68">{arrow()}</div>
       <div class="claim"><h2>Vom Einzel&shy;unternehmen zum führenden Fassadenbauer der Schweiz!</h2><span class="link-line">Unternehmen {ic()}</span></div>
     </a>
-    <a class="tile t-contact reveal" href="{p}kontakt.html" style="--d:.08s">
+    <a class="tile tile-dark t-contact reveal" href="{p}kontakt.html" style="--d:.08s">
       <div class="tile-top"><span class="eyebrow">Die beste Adresse für Ihre Fassade</span>{arrow()}</div>
       <div class="claim"><span class="status"><i></i>Hauptsitz Lyss</span><span class="phone">{PHONE}</span><p>Bernstrasse 84, CH-3250 Lyss</p></div>
     </a>
@@ -227,7 +227,7 @@ def home(p):
 
 <section aria-labelledby="u-title">
   <div class="grid">
-    <a class="tile t-about span-7 x-tall reveal" href="{p}unternehmen.html">
+    <a class="tile tile-grey t-about span-7 x-tall reveal" href="{p}unternehmen.html">
       <p class="eyebrow"><b>Unternehmen</b> · seit {tl[0]['year']}</p>
       <h2 id="u-title">Vom Einzel&shy;unternehmen zum <em>führenden</em> Fassadenbauer der Schweiz.</h2>
       <p style="max-width:60ch">{E(intro[1] if len(intro) > 1 else '')}</p>
@@ -261,7 +261,7 @@ def home(p):
       <div class="media"><img src="{img(teaser_img['/de/jobs/'], p)}" alt="" loading="lazy"></div>
       <div style="display:grid; gap:14px; max-width:60ch"><span class="caption accent">Jobs</span><h3 id="j-title" style="font-size:clamp(36px,4.4vw,64px)">Bauen Sie mit Fahrni.</h3><p>Offene Stellen in Produktion, Montage, Planung und Logistik.</p><span class="link-line">Offene Stellen {ic()}</span></div>
     </a>
-    <div class="tile tile-alt span-4 reveal" style="--d:.08s" data-light>
+    <div class="tile tile-grey span-4 reveal" style="--d:.08s" data-light>
       <span class="eyebrow"><b>{len(jobs)} offene Stellen</b></span>
       <ul class="steps">{job_list}</ul>
     </div>
@@ -276,7 +276,7 @@ def leistungen(p):
     for i, s in enumerate(L):
         pic = img(s["img"], p) if s["img"] else None
         rows.append(f'<div class="service" id="{s["id"]}">'
-                    f'<article class="tile s-text reveal" data-light><span class="num">0{i+1} / 0{len(L)}</span><h2>{E(s["title"])}</h2><div class="prose" style="grid-column:auto">{fix_html(s["html"], p)}</div></article>'
+                    f'<article class="tile s-text reveal{" tile-grey" if i % 2 else ""}" data-light><span class="num">0{i+1} / 0{len(L)}</span><h2>{E(s["title"])}</h2><div class="prose" style="grid-column:auto">{fix_html(s["html"], p)}</div></article>'
                     + (f'<div class="tile s-img reveal" style="--d:.08s" data-light><div class="media"><img src="{pic}" alt="{E(s["title"])}" loading="lazy"></div><span class="caption">{E(s["title"])}</span></div>' if pic else "")
                     + "</div>")
     return head(p, "Leistungen", lead(C["leistungen"]["lead"]), [("Leistungen", None)]) + f'<nav class="jump" aria-label="Leistungen">{jump}</nav>' + "".join(rows)
@@ -305,12 +305,12 @@ for i, r in enumerate(refs):
     def ref_page(p, r=r, prev_r=prev_r, next_r=next_r):
         facts = "".join(f"<dt>{E(a)}</dt><dd>{E(b)}</dd>" for a, b in r["facts"])
         facts = f'<div class="prose-card tile" data-light><dl>{facts}</dl></div>' if facts else ""
-        place = f'<div class="prose-card tile" data-light><dl><dt>Ort</dt><dd>{E(r["place"])}</dd><dt>Jahr</dt><dd>{E(r["group"])}</dd></dl></div>'
+        place = f'<div class="prose-card tile tile-grey" data-light><dl><dt>Ort</dt><dd>{E(r["place"])}</dd><dt>Jahr</dt><dd>{E(r["group"])}</dd></dl></div>'
         shots = "".join(f'<button type="button" aria-label="Bild {k+1} vergrössern"><img src="{img(g, p)}" alt="{E(r["name"])}, Bild {k+1}" loading="{"eager" if k == 0 else "lazy"}"></button>'
                         for k, g in enumerate(r["gallery"]) if img(g, p))
         pager = '<nav class="pager" aria-label="Weitere Referenzen">'
-        pager += (f'<a class="tile" href="{prev_r["slug"]}.html"><span class="dir">← Vorherige</span><h3>{E(prev_r["name"])}</h3></a>' if prev_r else "<span></span>")
-        pager += (f'<a class="tile next" href="{next_r["slug"]}.html"><span class="dir">Nächste →</span><h3>{E(next_r["name"])}</h3></a>' if next_r else "<span></span>")
+        pager += (f'<a class="tile tile-grey" href="{prev_r["slug"]}.html"><span class="dir">← Vorherige</span><h3>{E(prev_r["name"])}</h3></a>' if prev_r else "<span></span>")
+        pager += (f'<a class="tile tile-grey next" href="{next_r["slug"]}.html"><span class="dir">Nächste →</span><h3>{E(next_r["name"])}</h3></a>' if next_r else "<span></span>")
         pager += "</nav>"
         return (head(p, r["name"], r["place"], [("Referenzen", "referenzen.html"), (r["name"], None)])
                 + f'<div class="detail"><div class="prose prose-card tile" data-light>{fix_html(r["html"], p) or "<p>Fassade von Fahrni Fassadensysteme AG.</p>"}</div>'
@@ -327,7 +327,7 @@ def unternehmen(p):
         last = k == len(T) - 1
         items.append(f'<li class="tl-item{" tl-now" if last else ""}" data-year="{y["year"]}">'
                      f'<span class="tl-dot" aria-hidden="true"></span><span class="tl-link" aria-hidden="true"></span>'
-                     f'<article class="tile tl-card{" tile-blue" if last else ""}" data-light><span class="yr">{y["year"]}</span>'
+                     f'<article class="tile tl-card{" tile-blue" if last else (" tile-grey" if int(y["year"]) < 2000 else "")}" data-light><span class="yr">{y["year"]}</span>'
                      f'<div>{"".join(f"<p>{E(t)}</p>" for t in y["text"])}</div></article></li>')
     span = int(T[-1]["year"]) - int(T[0]["year"])
     years = (f'<div class="tl" id="tl" aria-labelledby="g-title"><div class="tl-sticky">'
@@ -340,7 +340,7 @@ def unternehmen(p):
     return (head(p, "Unternehmen", U["title"], [("Unternehmen", None)])
             + f'<section><div class="grid">'
             + f'<a class="tile t-about span-7 tall reveal" href="{p}prinzipien.html"><p class="eyebrow"><b>Prinzipien</b></p><h2 style="font-size:clamp(30px,3.2vw,48px);max-width:22ch">{E(pr[0])}</h2><span class="link-line">Unsere Prinzipien {ic()}</span></a>'
-            + f'<a class="tile span-5 tall reveal" style="--d:.08s" href="{p}presse.html"><div class="tile-top"><span class="eyebrow"><b>Presse</b></span>{arrow()}</div><div><h3>{len(C["presse"])} Fachberichte</h3><p>Projekte von Fahrni in der Fachpresse.</p></div></a>'
+            + f'<a class="tile tile-dark span-5 tall reveal" style="--d:.08s" href="{p}presse.html"><div class="tile-top"><span class="eyebrow"><b>Presse</b></span>{arrow()}</div><div><h3>{len(C["presse"])} Fachberichte</h3><p>Projekte von Fahrni in der Fachpresse.</p></div></a>'
             + f'</div></section><section class="tl-section">' + years + '</section>')
 page("unternehmen.html", "Unternehmen · FAHRNI", unternehmen, "unternehmen", U["title"])
 
@@ -349,7 +349,7 @@ def prinzipien(p):
     blocks = []
     for k in range(0, len(pr), 2):
         pic = ims[k // 2] if k // 2 < len(ims) else None
-        blocks.append(f'<div class="service"><article class="tile s-text reveal" data-light><div class="prose" style="grid-column:auto">{"".join(f'<p class=statement>{E(x)}</p>' for x in pr[k:k+2])}</div></article>'
+        blocks.append(f'<div class="service"><article class="tile s-text reveal{" tile-grey" if k else ""}" data-light><div class="prose" style="grid-column:auto">{"".join(f'<p class=statement>{E(x)}</p>' for x in pr[k:k+2])}</div></article>'
                       + (f'<div class="tile s-img reveal" data-light><div class="media"><img src="{pic}" alt="" loading="lazy"></div></div>' if pic else "") + "</div>")
     return head(p, "Prinzipien", "", [("Unternehmen", "unternehmen.html"), ("Prinzipien", None)]) + "".join(blocks)
 page("prinzipien.html", "Prinzipien · FAHRNI", prinzipien, "unternehmen")
@@ -377,12 +377,12 @@ for k, n in enumerate(news):
     def news_page(p, n=n, prev_n=prev_n, next_n=next_n):
         shots = "".join(f'<button type="button" aria-label="Bild vergrössern"><img src="{img(g, p)}" alt="{E(n["title"])}"></button>' for g in n["imgs"] if img(g, p))
         pager = '<nav class="pager" aria-label="Weitere News">'
-        pager += (f'<a class="tile" href="{prev_n["slug"]}.html"><span class="dir">← Neuer</span><h3>{E(prev_n["title"])}</h3></a>' if prev_n else "<span></span>")
-        pager += (f'<a class="tile next" href="{next_n["slug"]}.html"><span class="dir">Älter →</span><h3>{E(next_n["title"])}</h3></a>' if next_n else "<span></span>")
+        pager += (f'<a class="tile tile-grey" href="{prev_n["slug"]}.html"><span class="dir">← Neuer</span><h3>{E(prev_n["title"])}</h3></a>' if prev_n else "<span></span>")
+        pager += (f'<a class="tile tile-grey next" href="{next_n["slug"]}.html"><span class="dir">Älter →</span><h3>{E(next_n["title"])}</h3></a>' if next_n else "<span></span>")
         pager += "</nav>"
         return (head(p, n["title"].replace("Neuer Auftrag ", ""), n["abstract"], [("News", "news.html"), ("Neuer Auftrag", None)])
                 + f'<div class="detail"><div class="prose prose-card tile" data-light><p class="eyebrow"><b>Neuer Auftrag</b></p>{fix_html(n["html"], p)}</div>'
-                + f'<div class="facts"><a class="tile" href="{p}referenzen.html"><div class="tile-top"><span class="eyebrow">Weitere Projekte</span>{arrow()}</div><h3>Alle Referenzen</h3></a></div></div>'
+                + f'<div class="facts"><a class="tile tile-dark" href="{p}referenzen.html"><div class="tile-top"><span class="eyebrow">Weitere Projekte</span>{arrow()}</div><h3>Alle Referenzen</h3></a></div></div>'
                 + f'<div class="gallery">{shots}</div>{pager}{lightbox()}')
     page(f"news/{n['slug']}.html", f"{n['title']} · News · FAHRNI", news_page, "news", n["abstract"])
 
@@ -399,7 +399,7 @@ for j in jobs:
         return (head(p, j["title"], "", [("Jobs", "jobs.html"), ("Stelle", None)])
                 + f'<div class="detail"><div class="prose prose-card tile" data-light>{fix_html(j["html"], p)}</div>'
                 + f'<div class="facts"><div class="tile tile-blue" data-light><span class="eyebrow">Bewerbung</span><h3>Fahrni Fassadensysteme AG</h3><p>Bernstrasse 84, 3250 Lyss<br><a href="{TEL}">Tel. 032 387 25 25</a></p></div>'
-                + f'<a class="tile" href="{p}jobs.html"><div class="tile-top"><span class="eyebrow">Weitere Stellen</span>{arrow()}</div><h3>Alle offenen Stellen</h3></a></div></div>')
+                + f'<a class="tile tile-dark" href="{p}jobs.html"><div class="tile-top"><span class="eyebrow">Weitere Stellen</span>{arrow()}</div><h3>Alle offenen Stellen</h3></a></div></div>')
     page(f"jobs/{j['slug']}.html", f"{j['title']} · Jobs · FAHRNI", job_page, "jobs", j["title"])
 
 
@@ -427,7 +427,7 @@ def social(p):
                      f'<div class="media"><img src="{post_video(post, p)[1]}" alt="" loading="lazy"></div>'
                      f'<span class="sl-thumb-ch">{E(CH[post["channel"]]["name"])}</span><span class="sl-thumb-t">{E(post["title"])}</span></button>' for k, post in enumerate(posts))
     chans = "".join(
-        f'<{"a" if c["url"] else "div"} class="tile span-4 reveal" style="--d:{k*.06}s"' + (f' href="{E(c["url"])}" target="_blank" rel="noopener"' if c["url"] else " data-light") + '>'
+        f'<{"a" if c["url"] else "div"} class="tile tile-dark span-4 reveal" style="--d:{k*.06}s"' + (f' href="{E(c["url"])}" target="_blank" rel="noopener"' if c["url"] else " data-light") + '>'
         f'<div class="tile-top"><span class="eyebrow"><b>{E(c["name"])}</b></span>{arrow("out") if c["url"] else ""}</div>'
         f'<div><h3>{E(c["handle"])}</h3><p>' + ("Folgen" if c["url"] else '<span class="sl-todo">Link zum Kanal ergänzen</span>') + f'</p></div></{"a" if c["url"] else "div"}>'
         for k, c in enumerate(S["channels"]))

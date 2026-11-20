@@ -476,7 +476,7 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 /* Ohne Animation: einfach seitlich wischen */
 .tl.is-static { height: auto !important; }
 .tl.is-static .tl-sticky { position: static; height: auto; padding-top: 0; }
-.tl.is-static .tl-viewport { overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 12px; }
+.tl.is-static .tl-viewport { overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); padding-bottom: 12px; }
 .tl.is-static .tl-track { transform: none !important; }
 .tl.is-static .tl-item { scroll-snap-align: start; }
 .tl.is-static .tl-card { opacity: 1; transform: none; }
@@ -535,6 +535,13 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 @media (prefers-reduced-motion: reduce) {
   .js-sl .sl-copy > *, .js-sl .sl-text .w { opacity: 1 !important; transform: none !important; animation: none !important; }
 }
+
+/* ---------- Graue Kacheln als Abwechslung ---------- */
+.tile-grey { background: #1c1e21; }
+.tile-dark { background: var(--anthrazit); color: #fff; --edge-hover: rgba(255, 255, 255, .55); }
+.tile-dark p, .tile-dark .eyebrow, .tile-dark .status { color: rgba(255, 255, 255, .86); }
+.tile-dark .eyebrow b, .tile-dark h3, .tile-dark .phone { color: #fff; }
+.tile-dark .sl-todo { color: #ffe08a; background: none; padding: 0; }
 
 /* ============================================================
    Helle Variante: wird beim Build hinter site.css gehängt.
@@ -706,3 +713,17 @@ a.tile:has(> .media):hover .arrow { border-color: #fff; }
 .sl-dot i { background: #6d7474; }
 .sl-thumb[aria-current="true"] { outline-color: var(--blue); }
 .sl-thumb-ch, .sl-thumb-t { color: #fff; }
+
+/* Graue Kacheln hell: Fassadengrau-Tint (dunkle Schrift) und Anthrazit (weisse Schrift)
+   Text #111316 auf #E3E6E6 15.2:1 · Muted 8.6:1 · Faint #565B60 5.5:1 · Blau 11.9:1
+   Weiss auf Anthrazit #404347 9.9:1 · 86 % Weiss ≈ 7.6:1 */
+.tile-grey, .prose-card.tile-grey, .t-about.tile-grey { background: #e3e6e6; box-shadow: none; }
+.tile-grey .arrow { background: #fff; }
+.tile-dark, .t-contact.tile-dark { background: var(--anthrazit); color: #fff; --edge-hover: rgba(255, 255, 255, .55); }
+.tile-dark p, .tile-dark .eyebrow, .tile-dark .status { color: rgba(255, 255, 255, .86); }
+.tile-dark .eyebrow b, .tile-dark h3, .tile-dark .phone, .tile-dark .link-line { color: #fff; }
+.tile-dark .arrow { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .4); color: #fff; }
+a.tile.tile-dark:hover .arrow { background: #fff; color: var(--blue); border-color: #fff; }
+.tile-dark .status i { background: #5fd38a; }
+.tile-dark .sl-todo { color: #ffe08a; background: none; padding: 0; }
+.tile-dark::after { background: radial-gradient(calc(180px + var(--r)) circle at var(--x) var(--y), rgba(255, 255, 255, calc(.01 + .05 * var(--o))) 0%, transparent 70%); }
