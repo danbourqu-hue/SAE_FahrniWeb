@@ -250,7 +250,7 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 .span-6 { grid-column: span 6; } .span-7 { grid-column: span 7; } .span-8 { grid-column: span 8; } .span-12 { grid-column: 1 / -1; }
 .tall { min-height: 440px; } .x-tall { min-height: 560px; }
 .img-tile { justify-content: space-between; }
-.caption { display: inline-flex; align-self: flex-start; padding: 7px 13px; border-radius: 999px; background: rgba(64, 67, 71, .88); font-family: var(--head); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+.caption { display: inline-flex; align-self: flex-start; justify-self: start; width: max-content; max-width: 100%; padding: 7px 13px; border-radius: 999px; background: rgba(64, 67, 71, .88); font-family: var(--head); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
 .big-num { font-family: var(--head); font-size: clamp(70px, 9vw, 150px); line-height: .85; color: #fff; }
 .big-num small { display: block; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin-top: 12px; }
 .t-about { background: var(--tile-2); }
@@ -560,3 +560,7 @@ a:hover .link-line svg, .link-line:hover svg { transform: translateX(5px); }
 .foot-band .theme-switch:hover { color: #fff; }
 @media (max-width: 980px) { .foot-band .foot-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .foot-band .foot-grid { grid-template-columns: 1fr; } .foot-sites { grid-template-columns: 1fr 1fr; } }
+
+/* Fotos mit Personen: Bildausschnitt so, dass Gesichter oberhalb des Textes liegen */
+.media img.pos-top { object-position: 50% 18%; }
+@media (max-width: 640px) { .tile:has(img.pos-top) { min-height: 600px; } .media img.pos-top { object-position: 50% 8%; } }

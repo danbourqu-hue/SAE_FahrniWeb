@@ -256,7 +256,7 @@ def home(p):
 <section aria-labelledby="j-title">
   <div class="grid">
     <a class="tile span-8 x-tall reveal" href="{p}jobs.html" style="justify-content:flex-end">
-      <div class="media"><img src="{img(teaser_img['/de/jobs/'], p)}" alt="" loading="lazy"></div>
+      <div class="media"><img src="{img(teaser_img['/de/jobs/'], p)}" alt="" loading="lazy" class="pos-top"></div>
       <div style="display:grid; gap:14px; max-width:60ch"><span class="caption accent">Jobs</span><h3 id="j-title" style="font-size:clamp(36px,4.4vw,64px)">Bauen Sie mit Fahrni.</h3><p>Offene Stellen in Produktion, Montage, Planung und Logistik.</p><span class="link-line">Offene Stellen {ic()}</span></div>
     </a>
     <div class="tile tile-grey span-4 reveal" style="--d:.08s" data-light>
@@ -389,7 +389,7 @@ def jobs_list(p):
     t = "".join(f'<a class="tile span-6 tall reveal" style="--d:{(k%2)*.06}s" href="{p}jobs/{j["slug"]}.html"><div class="tile-top"><span class="num">Stelle 0{k+1}</span>{arrow()}</div><h3 style="font-size:clamp(28px,3vw,44px)">{E(j["title"])}</h3></a>'
                 for k, j in enumerate(jobs))
     pic = img(teaser_img["/de/jobs/"], p)
-    hero = f'<div class="grid" style="margin-bottom:var(--gap)"><div class="tile span-12 tall reveal" data-light style="justify-content:flex-end"><div class="media"><img src="{pic}" alt="" loading="lazy"></div><h2 style="font-size:clamp(36px,5vw,72px)">Bauen Sie mit Fahrni.</h2></div></div>'
+    hero = f'<div class="grid" style="margin-bottom:var(--gap)"><div class="tile span-12 x-tall reveal" data-light style="justify-content:flex-end"><div class="media"><img src="{pic}" alt="" loading="lazy" class="pos-top"></div><h2 style="font-size:clamp(36px,5vw,72px)">Bauen Sie mit Fahrni.</h2></div></div>'
     return head(p, "Jobs", "Offene Stellen", [("Jobs", None)]) + hero + f'<div class="grid">{t}</div>'
 page("jobs.html", "Jobs · FAHRNI", jobs_list, "jobs")
 for j in jobs:
