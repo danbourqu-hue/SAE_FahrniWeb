@@ -156,6 +156,39 @@
     lb.classList.remove("is-open"); if (shots[idx]) shots[idx].focus();
   }
 
+
+  /* ---------- Zeitachse: füllt sich beim Scrollen ---------- */
+  var tl = document.getElementById("tl");
+  if (tl) {
+    var items = Array.prototype.slice.call(tl.querySelectorAll(".tl-item"));
+    var yearEl = document.getElementById("tl-year"), shownYear = yearEl.textContent;
+    var tlTick = false;
+    var tlUpdate = function () {
+      tlTick = false;
+      var r = tl.getBoundingClientRect(), mark = innerHeight * .62;
+      var prog = reduce ? 1 : Math.max(0, Math.min(1, (mark - r.top) / r.height));
+      tl.style.setProperty("--p", (prog * 100).toFixed(2) + "%");
+      var year = items[0].dataset.year;
+      items.forEach(function (it) {
+        var on = reduce || it.getBoundingClientRect().top + 38 < mark;
+        if (on && !it.classList.contains("is-active")) {
+          it.classList.add("is-active", "just-on");
+          setTimeout(function () { it.classList.remove("just-on"); }, 1200);
+        } else if (!on && it.classList.contains("is-active")) {
+          it.classList.remove("is-active");
+        }
+        if (on) year = it.dataset.year;
+      });
+      if (year !== shownYear) {
+        shownYear = year; yearEl.textContent = year;
+        yearEl.classList.remove("flip"); void yearEl.offsetWidth; yearEl.classList.add("flip");
+      }
+    };
+    addEventListener("scroll", function () { if (!tlTick) { tlTick = true; requestAnimationFrame(tlUpdate); } }, { passive: true });
+    addEventListener("resize", tlUpdate);
+    tlUpdate();
+  }
+
   /* ---------- Footer-Animation ---------- */
   var video = document.getElementById("footer-video");
   var toggle = document.getElementById("video-toggle");

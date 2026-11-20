@@ -310,16 +310,24 @@ for i, r in enumerate(refs):
 # ---------------------------------------------------------------- Unternehmen
 U = C["unternehmen"]
 def unternehmen(p):
-    years = "".join(f'<article class="tile t-year reveal{" now" if k == len(U["timeline"]) - 1 else ""}" style="--d:{(k%4)*.05}s" data-light>'
-                    f'<span class="yr">{y["year"]}</span><div>{"".join(f"<p>{E(t)}</p>" for t in y["text"])}</div></article>'
-                    for k, y in enumerate(U["timeline"]))
+    T = U["timeline"]
+    items = []
+    for k, y in enumerate(T):
+        last = k == len(T) - 1
+        items.append(f'<li class="tl-item{" tl-now" if last else ""}" data-year="{y["year"]}">'
+                     f'<span class="tl-dot" aria-hidden="true"></span><span class="tl-link" aria-hidden="true"></span>'
+                     f'<article class="tile tl-card{" tile-blue" if last else ""}" data-light><span class="yr">{y["year"]}</span>'
+                     f'<div>{"".join(f"<p>{E(t)}</p>" for t in y["text"])}</div></article></li>')
+    years = (f'<div class="tl" id="tl"><div class="tl-axis" aria-hidden="true"><div class="tl-fill"></div>'
+             f'<div class="tl-head"><span id="tl-year">{T[0]["year"]}</span></div></div>'
+             f'<ol class="tl-list">{"".join(items)}</ol></div>')
     pr = C["prinzipien"]["paras"]
     return (head(p, "Unternehmen", U["title"], [("Unternehmen", None)])
             + f'<section><div class="grid">'
             + f'<a class="tile t-about span-7 tall reveal" href="{p}prinzipien.html"><p class="eyebrow"><b>Prinzipien</b></p><h2 style="font-size:clamp(30px,3.2vw,48px);max-width:22ch">{E(pr[0])}</h2><span class="link-line">Unsere Prinzipien {ic()}</span></a>'
             + f'<a class="tile span-5 tall reveal" style="--d:.08s" href="{p}presse.html"><div class="tile-top"><span class="eyebrow"><b>Presse</b></span>{arrow()}</div><div><h3>{len(C["presse"])} Fachberichte</h3><p>Projekte von Fahrni in der Fachpresse.</p></div></a>'
-            + f'</div></section><section aria-labelledby="g-title"><div class="section-head reveal"><h2 id="g-title">Geschichte. <span>{U["timeline"][0]["year"]} bis heute.</span></h2></div>'
-            + f'<div class="timeline">{years}</div></section>')
+            + f'</div></section><section aria-labelledby="g-title"><div class="section-head reveal"><h2 id="g-title">Geschichte. <span>{U["timeline"][0]["year"]} bis heute.</span></h2><p>{len(U["timeline"])} Meilensteine aus {int(U["timeline"][-1]["year"]) - int(U["timeline"][0]["year"])} Jahren Fassadenbau.</p></div>'
+            + years + '</section>')
 page("unternehmen.html", "Unternehmen · FAHRNI", unternehmen, "unternehmen", U["title"])
 
 def prinzipien(p):

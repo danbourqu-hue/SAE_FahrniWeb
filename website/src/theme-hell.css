@@ -154,3 +154,10 @@ a.tile:hover .arrow { background: var(--blue); color: #fff; border-color: var(--
 .chip small { opacity: 1; color: var(--faint); }
 .chip[aria-pressed="true"] small { color: rgba(255, 255, 255, .85); }
 .t-news .media img { filter: none; }
+
+/* Zeitachse hell: Blau als Akzent */
+.tl { --tl: var(--blue); --tl-soft: rgba(0, 20, 137, .12); }
+.tl-head { color: #fff; }
+.tl-card .yr { color: var(--text); }
+.tl-now .tl-card .yr { color: var(--blue); }
+.tl-dot { background: var(--bg); border-color: #8a9090; }
