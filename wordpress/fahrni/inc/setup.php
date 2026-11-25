@@ -26,6 +26,8 @@ remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'fahrni', FAHRNI_URI . '/assets/site.css', [], FAHRNI_VERSION );
 	wp_enqueue_script( 'fahrni', FAHRNI_URI . '/assets/site.js', [], FAHRNI_VERSION, true );
+	/* Angemeldet: schwarze Admin-Leiste von WordPress nicht über die Kopfleiste legen */
+	wp_add_inline_style( 'fahrni', '.admin-bar .header{top:44px}.admin-bar .menu,.admin-bar .mmenu{top:32px}@media (max-width:782px){.admin-bar .header{top:58px}.admin-bar .menu,.admin-bar .mmenu{top:46px}}@media (max-width:600px){#wpadminbar{position:fixed}}' );
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'global-styles' );
 	wp_dequeue_style( 'classic-theme-styles' );

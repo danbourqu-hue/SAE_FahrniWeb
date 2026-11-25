@@ -8,6 +8,8 @@ Mehrseitiger Entwurf im neuen, hellen FAHRNI Corporate Design mit dem gesamten d
 
 Für die Handy-Ansicht `handy-vorschau.html` öffnen: Die Website läuft dort in einem Handy- oder Tablet-Rahmen.
 
+Für die Redaktionsoberfläche `wordpress-rundgang.html` öffnen: Bildschirmfotos aus WordPress mit dem FAHRNI-Theme und allen Inhalten, mit Erklärungen.
+
 Per Doppelklick im Browser öffnen, es braucht keinen Webserver. Schriften sind in `assets/site.css` eingebettet, Bilder, Videos und Presse-PDFs liegen lokal in `assets/`. Alle Links bleiben auf der Website. Presse-PDFs öffnen sich auf einer eigenen Seite im Website-Rahmen mit «Zurück»-Button. Am Ende jeder Unterseite führen feste Wege zu Startseite, Karriere, Referenzen und Kontakt. 
 
 ## Aufbau
@@ -17,6 +19,7 @@ Per Doppelklick im Browser öffnen, es braucht keinen Webserver. Schriften sind 
 | `*.html` (Hauptordner) | Startseite, Leistungen, Referenzen, Unternehmen, Prinzipien, Presse, News, Karriere (`jobs.html`), Social, Kontakt, Datenschutz, Beschaffungsbedingungen |
 | `referenzen/`, `news/`, `jobs/`, `presse/` | Detailseiten: 115 Referenzen, 9 News, 4 Stellen, 26 Presseberichte |
 | `handy-vorschau.html` | Vorschau in Handy- und Tablet-Grösse |
+| `wordpress-rundgang.html`, `assets/rundgang/` | Rundgang durch die WordPress-Oberfläche |
 | `src/site.css`, `src/theme-hell.css`, `src/site.js` | Gestaltung und Interaktion (Quelle) |
 | `content/content.json` | Inhalt von fahrni.com, strukturiert |
 | `content/geschichte.json` | Zuordnung der Inhalte zu den Meilensteinen der Geschichte |

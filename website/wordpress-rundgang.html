@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WordPress-Rundgang · FAHRNI</title>
+<link rel="icon" href="assets/img/favicon.png">
+<style>
+  :root { --blue: #001489; --bg: #f3f4f4; --tile: #fff; --grey: #e3e6e6; --ink: #111316; --muted: #3d4145; --faint: #565b60; --line: rgba(17,19,22,.1); }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", Arial, sans-serif; line-height: 1.55; }
+  header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .bar { max-width: 1240px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 20px; }
+  .bar img { height: 34px; }
+  .bar a.site { margin-left: auto; padding: 10px 18px; border-radius: 999px; background: var(--blue); color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; }
+  main { max-width: 1240px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-size: clamp(36px, 5vw, 60px); line-height: 1.05; margin: 0 0 16px; }
+  .lead { font-size: 19px; color: var(--muted); max-width: 62ch; margin: 0 0 12px; }
+  .note { display: inline-block; font-size: 14px; color: var(--faint); background: var(--grey); padding: 8px 14px; border-radius: 10px; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 48px; }
+  nav.toc a { font-size: 14px; padding: 8px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { border-color: var(--blue); color: var(--blue); }
+  section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 32px; align-items: start; padding: 32px 0; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .num { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
+  h2 { font-size: 26px; line-height: 1.15; margin: 6px 0 12px; }
+  section p { margin: 0 0 10px; color: var(--muted); }
+  section ul { margin: 0; padding-left: 1.1em; color: var(--muted); }
+  section li + li { margin-top: 4px; }
+  figure { margin: 0; }
+  figure button { all: unset; cursor: zoom-in; display: block; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px -30px rgba(17,19,22,.45); border: 1px solid var(--line); background: #fff; }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { font-size: 13px; color: var(--faint); margin-top: 8px; }
+  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(17,19,22,.88); display: none; align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
+  .lb.on { display: flex; }
+  .lb img { max-width: 100%; max-height: 100%; border-radius: 10px; }
+  footer { text-align: center; color: var(--faint); font-size: 14px; padding: 40px 24px; }
+  @media (max-width: 860px) { section { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header><div class="bar"><img src="assets/img/logo-blau.png" alt="FAHRNI façade systems"><strong>WordPress-Rundgang</strong><a class="site" href="index.html">Zur Website</a></div></header>
+<main>
+  <h1>So pflegt Fahrni die neue Website.</h1>
+  <p class="lead">Die neue Website läuft auf WordPress mit dem eigens gebauten FAHRNI-Theme. Die Redaktion füllt nur Formulare aus, Gestaltung und Animationen bleiben geschützt. Alle Bilder unten stammen aus einer echten WordPress-Installation mit allen 115 Referenzen, News, Stellen, Presseberichten und Social-Beiträgen.</p>
+  <p class="note">Testumgebung mit WordPress 6.4. Einzelne Beschriftungen sind hier noch englisch, auf dem echten Hosting ist alles deutsch. Bild anklicken = gross ansehen.</p>
+  <nav class="toc" aria-label="Inhalt">
+    <a href="#s00">Website</a><a href="#s01">Admin-Bereich</a><a href="#s02">Referenzen</a><a href="#s04">Formularfelder</a><a href="#s05">Stellen</a>
+    <a href="#s06">Social Media</a><a href="#s07">Geschichte</a><a href="#s08">Archivieren</a><a href="#s09">Texte und Kontakt</a><a href="#s11">Import</a><a href="#s13">Mediathek</a>
+  </nav>
+
+  <section id="s00"><div><span class="num">01 · Website</span><h2>Die Website in WordPress</h2><p>WordPress zeigt die Website exakt im neuen Design: Kacheln, Leuchtkegel, Zeitachse, Burger-Menü.</p><p>Wer angemeldet ist, sieht oben zusätzlich die schwarze Admin-Leiste mit «Seite bearbeiten» und «Anpassen».</p></div>
+    <figure><button type="button"><img src="assets/rundgang/00-website.jpg" alt="Startseite in WordPress mit Admin-Leiste" loading="lazy"></button></figure></section>
+
+  <section id="s01"><div><span class="num">02 · Admin-Bereich</span><h2>Alles an einem Ort</h2><p>Links stehen eigene Menüpunkte für jeden Inhaltstyp:</p><ul><li>News, Referenzen, Stellen, Presse</li><li>Social Media, Geschichte</li><li>Leistungen, Standorte</li></ul></div>
+    <figure><button type="button"><img src="assets/rundgang/01-dashboard.jpg" alt="WordPress-Übersicht mit FAHRNI-Menüpunkten" loading="lazy"></button></figure></section>
+
+  <section id="s02"><div><span class="num">03 · Referenzen</span><h2>Alle 115 Referenzen in einer Liste</h2><p>Mit Ort und Jahr auf einen Blick, Suche und Filter. «Hinzufügen» legt eine neue Referenz an; sie erscheint sofort auf der Website, inklusive Filter und Suche.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/02-referenzen.jpg" alt="Liste der Referenzen im Admin" loading="lazy"></button></figure></section>
+
+  <section id="s03"><div><span class="num">04 · Referenz bearbeiten</span><h2>Text wie in einem Textprogramm</h2><p>Titel und Leistungen schreibt man direkt, mit Fett, Listen und Links. Rechts: Jahr und Veröffentlichung.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/03-referenz-text.jpg" alt="Editor mit Text einer Referenz" loading="lazy"></button></figure></section>
+
+  <section id="s04"><div><span class="num">05 · Formularfelder</span><h2>Feste Felder statt freier Gestaltung</h2><ul><li>Ort, Bauherr, Architekt, Generalunternehmer</li><li>Bildergalerie: Bilder hinzufügen, per Ziehen sortieren, das erste wird gross gezeigt</li></ul><p>So sieht jede Referenz gleich aus, egal wer sie erfasst.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/04-referenz-felder.jpg" alt="Formularfelder einer Referenz mit Bildergalerie" loading="lazy"></button></figure></section>
+
+  <section id="s05"><div><span class="num">06 · Stellen</span><h2>Stellen mit Ablaufdatum</h2><p>Arbeitsort, Pensum, Kontakt und ein Ablaufdatum. Am Tag danach geht die Stelle automatisch offline, ohne dass jemand daran denken muss.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/05-stelle.jpg" alt="Stelle bearbeiten mit Ablaufdatum" loading="lazy"></button></figure></section>
+
+  <section id="s06"><div><span class="num">07 · Social Media</span><h2>Beiträge mit Video</h2><p>Kanal wählen, Video im Hochformat hochladen, Text und Hashtags eintragen, Link zum Originalbeitrag. Auf der Website erscheint der Beitrag im Slider, der Text wird Wort für Wort eingeblendet.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/06-social.jpg" alt="Social-Beitrag mit Video und Hashtags" loading="lazy"></button></figure></section>
+
+  <section id="s07"><div><span class="num">08 · Geschichte</span><h2>Meilensteine der Zeitachse</h2><p>Jahr, Ereignisse und ein Bild. Dazu lassen sich passende Leistungen und Standorte anklicken und Referenzen nach Ort verknüpfen, zum Beispiel alle Projekte in London. Die Detailansicht auf der Website stellt sich daraus selbst zusammen.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/07-meilenstein.jpg" alt="Meilenstein mit verknüpften Inhalten" loading="lazy"></button></figure></section>
+
+  <section id="s08"><div><span class="num">09 · Veraltetes</span><h2>Archivieren statt löschen</h2><p>Status «Archiviert» wählen: Der Inhalt ist sofort offline, bleibt aber im System und lässt sich jederzeit zurückholen. Wer die alte Adresse aufruft, landet automatisch auf der passenden Übersicht.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/08-archivieren.jpg" alt="Schnellbearbeitung mit Status Archiviert" loading="lazy"></button></figure></section>
+
+  <section id="s09"><div><span class="num">10 · Texte und Kontakt</span><h2>Startseite mit Live-Vorschau</h2><p>Unter «Design → Anpassen → FAHRNI»: Navigation, Telefon, Adresse, E-Mail, Texte der Startseite und Social-Adressen. Rechts zeigt die Vorschau jede Änderung sofort.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/09-anpassen.jpg" alt="Anpassen mit Live-Vorschau" loading="lazy"></button></figure></section>
+
+  <section id="s10"><div><span class="num">11 · Grosses Menü</span><h2>Bilder und Kurztexte im Menü</h2><p>Für jeden Menüpunkt lassen sich Bild und Kurztext austauschen, die im grossen Burger-Menü erscheinen.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/10-menuebilder.jpg" alt="Menübilder anpassen" loading="lazy"></button></figure></section>
+
+  <section id="s11"><div><span class="num">12 · Import</span><h2>Alle Inhalte in zwei Minuten übernommen</h2><p>Ein eingebauter Import übernimmt alle Inhalte aus dem Entwurf: Texte, 785 Bilder, 26 PDFs und die Videos. Niemand muss etwas abtippen.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/11-import.jpg" alt="FAHRNI-Import im Menü Werkzeuge" loading="lazy"></button></figure></section>
+
+  <section id="s12"><div><span class="num">13 · Automatik</span><h2>News räumen sich selbst auf</h2><p>Unter «Einstellungen → Lesen» steht, nach wie vielen Jahren News automatisch archiviert werden. Vorgabe: 2 Jahre.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/12-lesen.jpg" alt="Einstellung News automatisch archivieren" loading="lazy"></button></figure></section>
+
+  <section id="s13"><div><span class="num">14 · Mediathek</span><h2>Alle Bilder und Dokumente</h2><p>Bilder, PDFs und Videos liegen zentral in der Mediathek. WordPress erstellt automatisch passende Grössen für Handy und Bildschirm.</p></div>
+    <figure><button type="button"><img src="assets/rundgang/13-mediathek.jpg" alt="Mediathek mit Bildern" loading="lazy"></button></figure></section>
+</main>
+<footer>FAHRNI Fassadensysteme AG · Website-Entwurf und WordPress-Theme · <a href="index.html">Zur Website</a> · <a href="handy-vorschau.html">Handy-Vorschau</a></footer>
+<div class="lb" id="lb" role="dialog" aria-label="Bild gross"><img alt=""></div>
+<script>
+  var lb = document.getElementById("lb"), li = lb.querySelector("img");
+  document.querySelectorAll("figure button").forEach(function (b) { b.addEventListener("click", function () { var i = b.querySelector("img"); li.src = i.src; li.alt = i.alt; lb.classList.add("on"); }); });
+  lb.addEventListener("click", function () { lb.classList.remove("on"); });
+  addEventListener("keydown", function (e) { if (e.key === "Escape") lb.classList.remove("on"); });
+</script>
+</body>
+</html>
