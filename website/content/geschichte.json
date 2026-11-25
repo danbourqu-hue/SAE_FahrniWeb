@@ -1,0 +1,121 @@
+{
+ "_hinweis": "Ergänzt die Meilensteine der Geschichte (Text 1:1 von fahrni.com/de/unternehmen/) mit passenden Inhalten anderer Seiten von fahrni.com. leistungen = Abschnitte der Seite Leistungen (vollständiger Text), prinzipien = Absätze der Seite Prinzipien, standorte = Namen von der Kontaktseite, referenzen = Ort/Name als Suchmuster, bild = Seitenbild (Schlüssel der Startseiten-Kacheln) oder Leistungs-ID. Presseberichte werden automatisch nach Jahr zugeordnet.",
+ "1923": {
+  "thema": "Die Gründung in Lyss",
+  "prinzipien": [
+   0,
+   1
+  ],
+  "standorte": [
+   "Hauptsitz und Werk 1"
+  ],
+  "bild": "unternehmen"
+ },
+ "1954": {
+  "thema": "Eigene Produktion",
+  "leistungen": [
+   "produktion"
+  ],
+  "bild": "produktion"
+ },
+ "1964": {
+  "thema": "Wärme- und Kälteschutz",
+  "leistungen": [
+   "entwicklung"
+  ],
+  "bild": "entwicklung"
+ },
+ "1985": {
+  "thema": "Mehr Platz für Fertigung und Verwaltung",
+  "leistungen": [
+   "beschaffung"
+  ],
+  "bild": "beschaffung"
+ },
+ "1998": {
+  "thema": "75 Jahre Erfahrung",
+  "prinzipien": [
+   2,
+   3
+  ],
+  "bild": "prinzipien-2"
+ },
+ "2001": {
+  "thema": "Ein Team aus Spezialisten",
+  "leistungen": [
+   "projektteam"
+  ],
+  "bild": "projektteam"
+ },
+ "2003": {
+  "thema": "Logistik und eigener Prüfstand",
+  "leistungen": [
+   "logistik",
+   "testanlage"
+  ],
+  "bild": "testanlage"
+ },
+ "2006": {
+  "thema": "Präsenz in Zürich",
+  "standorte": [
+   "Niederlassung Zürich"
+  ],
+  "referenzen": "Zürich|Zurich|ZÜRICH|Dietikon|Opfikon",
+  "bild": "referenzen"
+ },
+ "2007": {
+  "thema": "Fassaden für London",
+  "referenzen": "London|LONDON|Cambridge",
+  "bild": "london"
+ },
+ "2008": {
+  "thema": "Prüfen nach internationalen Normen",
+  "leistungen": [
+   "testanlage"
+  ],
+  "standorte": [
+   "Niederlassung Basel"
+  ],
+  "referenzen": "Basel|BASEL|Allschwil|Reinach",
+  "bild": "basel"
+ },
+ "2013": {
+  "thema": "Stärker in Biel und Lyss",
+  "standorte": [
+   "Hauptsitz und Werk 1"
+  ],
+  "referenzen": "Biel|BIEL|Bienne",
+  "bild": "biel"
+ },
+ "2016": {
+  "thema": "Doppelt so viel Produktionsfläche",
+  "leistungen": [
+   "produktion"
+  ],
+  "standorte": [
+   "Werk 2 Subingen"
+  ],
+  "bild": "produktion"
+ },
+ "2020": {
+  "thema": "Neue Büros",
+  "home": true,
+  "standorte": [
+   "Hauptsitz und Werk 1"
+  ],
+  "bild": "kontakt"
+ },
+ "2023": {
+  "thema": "100 Jahre Fahrni",
+  "home": true,
+  "neueste_referenzen": 6,
+  "news": 3,
+  "standorte": [
+   "Hauptsitz und Werk 1",
+   "Werk 2 Subingen",
+   "Niederlassung Zürich",
+   "Niederlassung Basel"
+  ],
+  "bild": "neueste"
+ }
+}

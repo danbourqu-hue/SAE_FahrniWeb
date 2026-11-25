@@ -97,11 +97,26 @@
     document.body.classList.toggle("menu-open", open);
     burger.setAttribute("aria-expanded", String(open));
     burger.setAttribute("aria-label", open ? "Menü schliessen" : "Menü öffnen");
+    var lbl = burger.querySelector(".mburger-label"); if (lbl) lbl.textContent = open ? "Schliessen" : "Menü";
+    if (open) { var first = document.querySelector("#menu a"); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 350); }
     header.classList.remove("is-hidden");
   }
   burger.addEventListener("click", function () { setMenu(!document.body.classList.contains("menu-open")); });
   document.querySelectorAll(".menu a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
   addEventListener("keydown", function (e) { if (e.key === "Escape") { setMenu(false); closeLb(); } });
+
+  /* ---------- Burger-Menü: Bild je Menüpunkt ---------- */
+  document.querySelectorAll(".mm-link").forEach(function (a) {
+    var show = function () { document.querySelectorAll(".mm-visual img").forEach(function (im) { im.classList.toggle("is-on", im.dataset.pic === a.dataset.pic); }); };
+    a.addEventListener("mouseenter", show); a.addEventListener("focus", show);
+  });
+  if (document.body.classList.contains("nav-burger")) document.body.addEventListener("keydown", function (e) {
+    if (!document.body.classList.contains("menu-open") || e.key !== "Tab") return;  // Fokus im offenen Menü halten
+    var f = [burger].concat(Array.prototype.slice.call(document.querySelectorAll("#menu a")));
+    var i = f.indexOf(document.activeElement);
+    if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+  });
 
   /* ---------- Referenzen filtern ---------- */
   var refGrid = document.getElementById("ref-grid");
@@ -121,6 +136,8 @@
       empty.hidden = shown > 0;
       tiles.forEach(function (t) { t._vis = !t.hidden; });
     }
+    var qp = new URLSearchParams(location.search).get("q");
+    if (qp) { search.value = qp; group = "alle"; }
     chips.forEach(function (c) { c.addEventListener("click", function () {
       group = c.dataset.group; try { sessionStorage.setItem("ref-group", group); } catch (e) {} apply();
     }); });
@@ -199,6 +216,36 @@
     };
     addEventListener("scroll", function () { if (!tlTick) { tlTick = true; requestAnimationFrame(tlUpdate); } }, { passive: true });
     addEventListener("resize", layout);
+    /* Pfeile, Tastatur und Hinweis */
+    var prevB = document.getElementById("tl-prev"), nextB = document.getElementById("tl-next"), hint = document.getElementById("tl-hint");
+    var activeIdx = function () { var n = -1; items.forEach(function (it, i) { if (it.classList.contains("is-active")) n = i; }); return n; };
+    var hideHint = function () { if (hint) hint.classList.add("is-gone"); };
+    var goItem = function (i) {
+      i = Math.max(0, Math.min(items.length - 1, i));
+      if (reduce) { tl.querySelector(".tl-viewport").scrollTo({ left: items[i].offsetLeft - 40, behavior: "auto" }); return; }
+      var tlTop = tl.getBoundingClientRect().top + scrollY;
+      var x = Math.max(0, Math.min(dist, items[i].offsetLeft - innerWidth * .55 + 2));
+      if (i === items.length - 1) x = dist;
+      scrollTo({ top: tlTop + x, behavior: "smooth" });
+      hideHint();
+    };
+    var syncArrows = function () { var n = activeIdx(); prevB.disabled = n <= 0; nextB.disabled = n >= items.length - 1; };
+    prevB.addEventListener("click", function () { goItem(activeIdx() - 1); });
+    nextB.addEventListener("click", function () { goItem(activeIdx() + 1); });
+    addEventListener("keydown", function (e) {
+      if (document.querySelector("dialog[open]") || document.body.classList.contains("menu-open")) return;
+      var r = tl.getBoundingClientRect(); if (r.top > 1 || r.bottom < innerHeight - 1) return;   // nur wenn die Achse fixiert ist
+      if (e.key === "ArrowRight") { e.preventDefault(); goItem(activeIdx() + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); goItem(activeIdx() - 1); }
+    });
+    var startY = null;
+    addEventListener("scroll", function () {
+      var r = tl.getBoundingClientRect();
+      if (r.top <= 0 && startY === null) startY = scrollY;
+      if (startY !== null && Math.abs(scrollY - startY) > 120) hideHint();
+      syncArrows();
+    }, { passive: true });
+    setTimeout(syncArrows, 50);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
     layout();
   }
@@ -287,6 +334,35 @@
     var v = t.querySelector("video");
     t.addEventListener("mouseenter", function () { v.play().catch(function () {}); });
     t.addEventListener("mouseleave", function () { v.pause(); });
+  });
+
+  /* ---------- Meilenstein-Details ---------- */
+  var msOpen = function (id) {
+    var d = document.getElementById(id); if (!d || !d.showModal) return;
+    document.querySelectorAll("dialog.ms[open]").forEach(function (o) { o.close(); });
+    root.classList.remove("has-cone");            // eigener Cursor liegt unter dem Dialog
+    d.showModal(); d.querySelector(".ms-body").scrollTop = 0;
+  };
+  document.querySelectorAll("[data-ms-go]").forEach(function (b) {
+    b.addEventListener("click", function (e) { e.stopPropagation(); msOpen(b.dataset.msGo); });
+  });
+  document.querySelectorAll(".tl-card").forEach(function (c) {
+    c.addEventListener("click", function (e) { var b = c.querySelector("[data-ms-go]"); if (b && !e.target.closest("a")) msOpen(b.dataset.msGo); });
+  });
+  document.querySelectorAll("dialog.ms").forEach(function (d) {
+    d.querySelector(".ms-close").addEventListener("click", function () { d.close(); });
+    d.addEventListener("click", function (e) { if (e.target === d) d.close(); });   // Klick auf Hintergrund
+    d.addEventListener("close", function () { if (fine && !document.querySelector("dialog.ms[open]")) root.classList.add("has-cone"); });
+  });
+
+  /* ---------- «Zurück»: zur vorherigen Seite der Website, sonst zur Übersicht ---------- */
+  document.querySelectorAll("[data-back]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var ref = document.referrer;
+      if (ref && history.length > 1 && (ref.indexOf(location.origin) === 0 || (location.protocol === "file:" && ref.indexOf("file:") === 0))) {
+        e.preventDefault(); history.back();
+      }
+    });
   });
 
   /* ---------- Footer-Animation ---------- */

@@ -187,3 +187,40 @@ a.tile.tile-dark:hover .arrow { background: #fff; color: var(--blue); border-col
 .foot-band .foot-grid { color: rgba(255, 255, 255, .8); }
 .foot-band .foot-grid a:hover { color: #fff; }
 .foot-band .foot-base { border-top-color: rgba(255, 255, 255, .18); }
+
+/* Meilenstein-Dialog hell */
+dialog.ms { background: #fff; box-shadow: 0 40px 120px -30px rgba(17,19,22,.45); }
+dialog.ms::backdrop { background: rgba(17, 19, 22, .45); }
+.ms-year { color: var(--blue); }
+.ms-facts li::before { background: var(--blue); }
+.ms-site { background: #e3e6e6; }
+.ms-list a { color: var(--blue); }
+.ms-open { border-color: rgba(17,19,22,.2); }
+.ms-open:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.tile-blue .ms-open { border-color: var(--blue); color: var(--blue); }
+.ms-close { background: #fff; border-color: rgba(17,19,22,.16); }
+.ms-close:hover { background: var(--blue); color: #fff; }
+
+/* Burger-Variante hell */
+.mburger { background: #fff; border-color: rgba(17,19,22,.12); box-shadow: 0 12px 34px -16px rgba(17,19,22,.35); }
+.mburger:hover .mburger-icon { background: var(--blue); }
+.mburger-icon { background: var(--blue); color: #fff; }
+.mmenu { background: #f3f4f4; }
+.mm-link[aria-current] .mm-label, .mm-link:hover .mm-label { color: var(--blue); }
+.menu .mm-sub a:hover { color: var(--blue); }
+.menu .mm-phone { color: var(--blue); }
+
+/* Orientierung hell: Startseite als Akzent */
+.ways .way-home { background: #fff; box-shadow: inset 0 4px 0 var(--blue), 0 1px 2px rgba(17,19,22,.04); }
+.ways .way-home h3 { color: var(--blue); }
+.ways .tile:not(.way-home) { background: #e3e6e6; }
+.pdf-frame { background: #fff; }
+
+/* Zeitachse Pfeile hell */
+.tl-arrow { background: #fff; border-color: rgba(17,19,22,.16); color: var(--blue); box-shadow: 0 8px 22px -14px rgba(17,19,22,.35); }
+.tl-arrow:not(:disabled):hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.tl-arrow-next:not(:disabled) { background: var(--blue); color: #fff; border-color: var(--blue); }
+.tl-arrow-next:not(:disabled):hover { background: #fff; color: var(--blue); }
+.tl-hint { background: #fff; border-color: rgba(17,19,22,.12); color: var(--muted); }
+.tl-mouse, .tl-hint-arrow { color: var(--blue); }
+.mmenu .mm-link[aria-current] .mm-label, .mmenu .mm-link:hover .mm-label { color: var(--blue); }

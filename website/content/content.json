@@ -205,107 +205,159 @@
  "presse": [
   {
    "title": "Roche Bau 2, Basel",
-   "pdf": "https://www.fahrni.com/media/filer/2023/00-00_r1_roch-bau2_neu.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2023/00-00_r1_roch-bau2_neu.pdf",
+   "file": "presse/00-00_r1_roch-bau2_neu.pdf",
+   "year": 2023
   },
   {
    "title": "Metallbau Ausgabe 10_2022",
-   "pdf": "https://www.fahrni.com/media/filer/2022/metallbau_ausgabe_10_2022.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2022/metallbau_ausgabe_10_2022.pdf",
+   "file": "presse/metallbau_ausgabe_10_2022.pdf",
+   "year": 2022
   },
   {
    "title": "The Dumont, London",
-   "pdf": "https://www.fahrni.com/media/filer/2022/00-00_r8_dumont-london.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2022/00-00_r8_dumont-london.pdf",
+   "file": "presse/00-00_r8_dumont-london.pdf",
+   "year": 2022
   },
   {
    "title": "Ambassador-House , Zürich",
-   "pdf": "https://www.fahrni.com/media/filer/2020/ambassador-houseausgabefassaden-nr02-2018.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/ambassador-houseausgabefassaden-nr02-2018.pdf",
+   "file": "presse/ambassador-houseausgabefassaden-nr02-2018.pdf",
+   "year": 2018
   },
   {
    "title": "Gymnasium Strandboden, Biel",
-   "pdf": "https://www.fahrni.com/media/filer/2020/fahrni47_r3_strandbodenausgabefassaden-nr12017.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/fahrni47_r3_strandbodenausgabefassaden-nr12017.pdf",
+   "file": "presse/fahrni47_r3_strandbodenausgabefassaden-nr12017.pdf",
+   "year": 2017
   },
   {
    "title": "Kameha Grand Hotel, Zürich-Opfikon",
-   "pdf": "https://www.fahrni.com/media/filer/2020/kameha_grand_hotel_zurichfassaden-nr12016.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/kameha_grand_hotel_zurichfassaden-nr12016.pdf",
+   "file": "presse/kameha_grand_hotel_zurichfassaden-nr12016.pdf",
+   "year": 2016
   },
   {
    "title": "Active-Air-Plus-Fassadensystem",
-   "pdf": "https://www.fahrni.com/media/filer/2020/active-air-plus-fassadensystemeausgabefassaden-nr4_2014.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/active-air-plus-fassadensystemeausgabefassaden-nr4_2014.pdf",
+   "file": "presse/active-air-plus-fassadensystemeausgabefassaden-nr4_2014.pdf",
+   "year": 2014
   },
   {
    "title": "Swisscom, Ittigen",
-   "pdf": "https://www.fahrni.com/media/filer/2020/swisscom_bernausabefassaden-nr32013.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/swisscom_bernausabefassaden-nr32013.pdf",
+   "file": "presse/swisscom_bernausabefassaden-nr32013.pdf",
+   "year": 2013
   },
   {
    "title": "Postfinance, Bern",
-   "pdf": "https://www.fahrni.com/media/filer/2020/postfinancebernausgabefassaden-nr32012.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/postfinancebernausgabefassaden-nr32012.pdf",
+   "file": "presse/postfinancebernausgabefassaden-nr32012.pdf",
+   "year": 2012
   },
   {
    "title": "Dock B, Zürich",
-   "pdf": "https://www.fahrni.com/media/filer/2020/dockbzrichausgabefassaden-nr22012.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/dockbzrichausgabefassaden-nr22012.pdf",
+   "file": "presse/dockbzrichausgabefassaden-nr22012.pdf",
+   "year": 2012
   },
   {
    "title": "Platform, Zürich",
-   "pdf": "https://www.fahrni.com/media/filer/2020/platformzrichausgabefassaden-nr42011.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/platformzrichausgabefassaden-nr42011.pdf",
+   "file": "presse/platformzrichausgabefassaden-nr42011.pdf",
+   "year": 2011
   },
   {
    "title": "NLMBB, Cambridge UK",
-   "pdf": "https://www.fahrni.com/media/filer/2020/nlmbbcambridgeausgabefassaden-nr12012.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/nlmbbcambridgeausgabefassaden-nr12012.pdf",
+   "file": "presse/nlmbbcambridgeausgabefassaden-nr12012.pdf",
+   "year": 2012
   },
   {
    "title": "EPFL, Lausanne",
-   "pdf": "https://www.fahrni.com/media/filer/2020/epfllausanneausgabefassaden-nr32011.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/epfllausanneausgabefassaden-nr32011.pdf",
+   "file": "presse/epfllausanneausgabefassaden-nr32011.pdf",
+   "year": 2011
   },
   {
    "title": "Schulhaus Leutschenbach, Zürich",
-   "pdf": "https://www.fahrni.com/media/filer/2020/schulhausleutschenbachzrichausgabefassaden-nr22010.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/schulhausleutschenbachzrichausgabefassaden-nr22010.pdf",
+   "file": "presse/schulhausleutschenbachzrichausgabefassaden-nr22010.pdf",
+   "year": 2010
   },
   {
    "title": "Triangle, Nyon",
-   "pdf": "https://www.fahrni.com/media/filer/2020/trianglenyonausgabefassaden-nr12010.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/trianglenyonausgabefassaden-nr12010.pdf",
+   "file": "presse/trianglenyonausgabefassaden-nr12010.pdf",
+   "year": 2010
   },
   {
    "title": "Av. de la Paix, Genf",
-   "pdf": "https://www.fahrni.com/media/filer/2020/avdelapaixgenfausgabefassaden-nr32009.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/avdelapaixgenfausgabefassaden-nr32009.pdf",
+   "file": "presse/avdelapaixgenfausgabefassaden-nr32009.pdf",
+   "year": 2009
   },
   {
    "title": "Dashwood House, London",
-   "pdf": "https://www.fahrni.com/media/filer/2020/dashwoodhouselondonausgabefassaden-nr22009.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/dashwoodhouselondonausgabefassaden-nr22009.pdf",
+   "file": "presse/dashwoodhouselondonausgabefassaden-nr22009.pdf",
+   "year": 2009
   },
   {
    "title": "Celgene Boudry",
-   "pdf": "https://www.fahrni.com/media/filer/2020/celgeneboudryausgabefassaden-nr12009.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/celgeneboudryausgabefassaden-nr12009.pdf",
+   "file": "presse/celgeneboudryausgabefassaden-nr12009.pdf",
+   "year": 2009
   },
   {
    "title": "Fiducaire Michel Favre SA, Lausanne",
-   "pdf": "https://www.fahrni.com/media/filer/2020/favrelausanneausgabefassaden-nr42008.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/favrelausanneausgabefassaden-nr42008.pdf",
+   "file": "presse/favrelausanneausgabefassaden-nr42008.pdf",
+   "year": 2008
   },
   {
    "title": "Bahnhof Visp",
-   "pdf": "https://www.fahrni.com/media/filer/2020/bahnhofvispausgabefassaden-nr32008.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/bahnhofvispausgabefassaden-nr32008.pdf",
+   "file": "presse/bahnhofvispausgabefassaden-nr32008.pdf",
+   "year": 2008
   },
   {
    "title": "RWD Hochhaus, Dietikon",
-   "pdf": "https://www.fahrni.com/media/filer/2020/rwdhochhausdietikonausgabefassaden-nr42007.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2020/rwdhochhausdietikonausgabefassaden-nr42007.pdf",
+   "file": "presse/rwdhochhausdietikonausgabefassaden-nr42007.pdf",
+   "year": 2007
   },
   {
    "title": "Nest, Regensdorf",
-   "pdf": "https://www.fahrni.com/media/filer/2023/nest-regensdorf_aussgabefassade-nr04-2023.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2023/nest-regensdorf_aussgabefassade-nr04-2023.pdf",
+   "file": "presse/nest-regensdorf_aussgabefassade-nr04-2023.pdf",
+   "year": 2023
   },
   {
    "title": "Artisa Tower, Zürich",
-   "pdf": "https://www.fahrni.com/media/filer/2023/artisa-tower_zurich_glSJsBX.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2023/artisa-tower_zurich_glSJsBX.pdf",
+   "file": "presse/artisa-tower_zurich_glsjsbx.pdf",
+   "year": 2023
   },
   {
    "title": "G2 - Guisanplatz, Bern",
-   "pdf": "https://www.fahrni.com/media/filer/2024/g2_bern_-_bbl_d-bulletin_no_8_de_NlTUaxG.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2024/g2_bern_-_bbl_d-bulletin_no_8_de_NlTUaxG.pdf",
+   "file": "presse/g2_bern_-_bbl_d-bulletin_no_8_de_nltuaxg.pdf",
+   "year": 2024
   },
   {
    "title": "EZ3 Eichenweg 5, Zollikofen",
-   "pdf": "https://www.fahrni.com/media/filer/2026/18-25_r7_eichenweg_de-fr_RnLKm0y.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2026/18-25_r7_eichenweg_de-fr_RnLKm0y.pdf",
+   "file": "presse/18-25_r7_eichenweg_de-fr_rnlkm0y.pdf",
+   "year": 2026
   },
   {
    "title": "ZWHATT-Areal, Regensdorf",
-   "pdf": "https://www.fahrni.com/media/filer/2026/40-45_r6_zwhatt_de-fr_QU2coSF.pdf"
+   "pdf": "https://www.fahrni.com/media/filer/2026/40-45_r6_zwhatt_de-fr_QU2coSF.pdf",
+   "file": "presse/40-45_r6_zwhatt_de-fr_qu2cosf.pdf",
+   "year": 2026
   }
  ],
  "dsgvo": {
