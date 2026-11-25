@@ -278,7 +278,6 @@ def home(p):
       <div class="tile-top"><span class="eyebrow">Die beste Adresse für Ihre Fassade</span>{arrow()}</div>
       <div class="claim"><span class="status"><i></i>Hauptsitz Lyss</span><span class="phone">{PHONE}</span><p>Bernstrasse 84, CH-3250 Lyss</p></div>
     </a>
-    {ticker()}
   </div>
 </section>
 
