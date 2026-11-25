@@ -4,29 +4,26 @@ Mehrseitiger Entwurf im neuen, hellen FAHRNI Corporate Design mit dem gesamten d
 
 ## Anschauen
 
-Zwei Varianten der Navigation, beide hell:
+`index.html` öffnen. Die Kopfleiste zeigt das Menüband und zusätzlich den Button «Menü», der das grosse Menü mit Bildern öffnet. Auf dem Handy bleibt nur der Button.
 
-| Variante | Einstieg |
-| --- | --- |
-| Mit Kopfleiste | `index.html` |
-| Mit Burger-Menü (ohne Kopfleiste, gleich auf Desktop und Handy) | `menu/index.html` |
+Für die Handy-Ansicht `handy-vorschau.html` öffnen: Die Website läuft dort in einem Handy- oder Tablet-Rahmen.
 
-Per Doppelklick im Browser öffnen, es braucht keinen Webserver. Schriften sind in `assets/site.css` eingebettet, Bilder, Videos und Presse-PDFs liegen lokal in `assets/`. Alle Links bleiben auf der Website. Presse-PDFs öffnen sich auf einer eigenen Seite im Website-Rahmen mit «Zurück»-Button. Am Ende jeder Unterseite führen feste Wege zu Startseite, Karriere, Referenzen und Kontakt. In der Fusszeile lässt sich zwischen den Varianten wechseln.
+Per Doppelklick im Browser öffnen, es braucht keinen Webserver. Schriften sind in `assets/site.css` eingebettet, Bilder, Videos und Presse-PDFs liegen lokal in `assets/`. Alle Links bleiben auf der Website. Presse-PDFs öffnen sich auf einer eigenen Seite im Website-Rahmen mit «Zurück»-Button. Am Ende jeder Unterseite führen feste Wege zu Startseite, Karriere, Referenzen und Kontakt. 
 
 ## Aufbau
 
 | Pfad | Inhalt |
 | --- | --- |
-| `*.html` (Hauptordner) | Variante mit Kopfleiste: Startseite, Leistungen, Referenzen, Unternehmen, Prinzipien, Presse, News, Karriere (`jobs.html`), Social, Kontakt, Datenschutz, Beschaffungsbedingungen |
+| `*.html` (Hauptordner) | Startseite, Leistungen, Referenzen, Unternehmen, Prinzipien, Presse, News, Karriere (`jobs.html`), Social, Kontakt, Datenschutz, Beschaffungsbedingungen |
 | `referenzen/`, `news/`, `jobs/`, `presse/` | Detailseiten: 115 Referenzen, 9 News, 4 Stellen, 26 Presseberichte |
-| `menu/` | dieselben Seiten mit Burger-Menü |
+| `handy-vorschau.html` | Vorschau in Handy- und Tablet-Grösse |
 | `src/site.css`, `src/theme-hell.css`, `src/site.js` | Gestaltung und Interaktion (Quelle) |
 | `content/content.json` | Inhalt von fahrni.com, strukturiert |
 | `content/geschichte.json` | Zuordnung der Inhalte zu den Meilensteinen der Geschichte |
 | `content/social.json` | Social-Media-Beiträge und Kanäle |
 | `content/images.json` | Zuordnung Original-Bild → lokale Datei |
 | `content/crawl.py`, `extract.py`, `images.py`, `presse_pdfs.py`, `make_social_videos.py` | Skripte für Abruf, Bilder, PDFs und Videos |
-| `build.py` | Erzeugt alle Seiten neu (beide Varianten) |
+| `build.py` | Erzeugt alle Seiten neu |
 
 ## Ändern
 

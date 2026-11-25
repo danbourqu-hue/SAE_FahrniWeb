@@ -8,11 +8,11 @@ Ausgabe: *.html, referenzen/, news/, jobs/, assets/site.css, assets/site.js
 import base64, html, json, pathlib, re, subprocess, sys
 
 HERE = pathlib.Path(__file__).parent
-# Varianten (beide hell): "hell" mit Kopfleiste (Hauptordner) und "menu" ohne Kopfleiste mit Burger-Menü (menu/)
-VARIANT = sys.argv[1] if len(sys.argv) > 1 else "hell"
-VARIANTS = {"hell": ("", "mit Kopfleiste"), "menu": ("menu/", "mit Burger-Menü")}
+# Eine Variante: helle Kopfleiste mit Menüband UND Burger-Button (grosses Menü mit Bildern)
+VARIANT = "hell"
+VARIANTS = {"hell": ("", "Kopfleiste mit Burger-Menü")}
 HELL = True
-MENU = VARIANT == "menu"
+MENU = False
 OUT = HERE / VARIANTS[VARIANT][0] if VARIANTS[VARIANT][0] else HERE
 CUR = {"path": "index.html"}
 C = json.loads((HERE / "content/content.json").read_text(encoding="utf-8"))
@@ -109,7 +109,16 @@ def header_burger(prefix, active):
 </div>"""
 
 def header(prefix, active):
-    if MENU: return header_burger(prefix, active)
+    full = header_burger(prefix, active)
+    big_menu = full[full.index('<div class="menu mmenu" id="menu">'):]
+    nav = "".join(f'<a href="{prefix}{k}.html"' + (' aria-current="page"' if k == active else "") + f">{v}</a>" for k, v in NAV[:-1])
+    return f"""<header class="header" id="header"><div class="bar">
+  <a class="brand" href="{prefix}index.html" aria-label="FAHRNI façade systems, zur Startseite"><img src="{prefix}assets/img/logo-dunkel.png" alt="FAHRNI façade systems" width="720" height="282"></a>
+  <nav class="nav" aria-label="Hauptnavigation">{nav}</nav>
+  <a class="btn btn-primary" href="{prefix}kontakt.html">Kontakt {ic()}</a>
+  <button class="mburger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen"><span class="mburger-label">Menü</span><span class="mburger-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+</div></header>
+{big_menu}"""
     nav = "".join(f'<a href="{prefix}{k}.html"' + (' aria-current="page"' if k == active else "") + f">{v}</a>" for k, v in NAV[:-1])
     menu = "".join(f'<a href="{prefix}{k}.html"><span>0{i+1}</span>{v}</a>' for i, (k, v) in enumerate(NAV))
     sub = f'<a class="sub" href="{prefix}prinzipien.html">Prinzipien</a><a class="sub" href="{prefix}presse.html">Presse</a>'
@@ -141,7 +150,7 @@ def footer(prefix):
     <div><h4>Unternehmen</h4><ul><li><a href="{prefix}prinzipien.html">Prinzipien</a></li><li><a href="{prefix}presse.html">Presse</a></li><li><a href="{prefix}datenschutz.html">Datenschutz</a></li><li><a href="{prefix}beschaffungsbedingungen.html">Allgemeine Beschaffungsbedingungen</a></li></ul></div>
     <div><h4>Standorte</h4><ul class="foot-sites">{sites_html}</ul></div>
   </div>
-  <div class="foot-base"><span>© Fahrni Fassadensysteme AG · Versionen: {versions(prefix)}</span><span>Website-Entwurf im neuen Corporate Design · Inhalte von fahrni.com</span></div>
+  <div class="foot-base"><span>© Fahrni Fassadensysteme AG</span><span>Website-Entwurf im neuen Corporate Design · Inhalte von fahrni.com</span></div>
 </div></div></footer>"""
 
 def wayfinding(prefix, path, active):
@@ -618,5 +627,4 @@ for k, v in fonts.items(): css = css.replace(k, v)
 (HERE / "assets/site.js").write_text((HERE / "src/site.js").read_text(encoding="utf-8"), encoding="utf-8")
 n = len(list(OUT.glob("*.html"))) + len(list(OUT.glob("*/*.html")))
 print(f"Variante {VARIANTS[VARIANT][1]}: {n} Seiten erzeugt")
-if VARIANT == "hell":
-    subprocess.run([sys.executable, __file__, "menu"], check=True)
+
