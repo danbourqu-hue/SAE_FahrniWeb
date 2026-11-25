@@ -88,3 +88,29 @@ add_action( 'customize_register', function ( WP_Customize_Manager $c ) {
 		$c->add_control( 'fahrni_' . $key, $args );
 	}
 } );
+
+/* ---------- Grosses Menü: Bild und Kurztext je Menüpunkt (Design → Anpassen → FAHRNI: Menü) ---------- */
+function fahrni_menu_keys(): array {
+	return [ 'leistungen' => 'Leistungen', 'referenzen' => 'Referenzen', 'unternehmen' => 'Unternehmen', 'news' => 'News',
+		'karriere' => 'Karriere', 'social' => 'Social', 'kontakt' => 'Kontakt' ];
+}
+function fahrni_menu_text( string $key ): string {
+	$d = [ 'leistungen' => 'Unser Leistungsportfolio beinhaltet alle Möglichkeiten zur Kreierung der perfekten Fassade.',
+		'referenzen' => 'Praktisch schön und effizient, unsere Fassaden.', 'unternehmen' => 'Vom Einzelunternehmen zum führenden Fassadenbauer der Schweiz!',
+		'news' => 'Neue Aufträge der Fahrni Fassadensysteme AG.', 'karriere' => 'Offene Stellen', 'social' => 'Beiträge aus LinkedIn, Instagram und YouTube.',
+		'kontakt' => 'Die beste Adresse für Ihre Fassade.' ];
+	return (string) get_theme_mod( 'fahrni_menutext_' . $key, $d[ $key ] ?? '' );
+}
+function fahrni_menu_image( string $key ): string {
+	$id = (int) get_theme_mod( 'fahrni_menubild_' . $key, 0 );
+	return $id ? (string) wp_get_attachment_image_url( $id, 'fahrni-wide' ) : '';
+}
+add_action( 'customize_register', function ( WP_Customize_Manager $c ) {
+	$c->add_section( 'fahrni_menu', [ 'title' => 'FAHRNI: Menü', 'priority' => 31, 'description' => 'Bild und Kurztext je Punkt im grossen Menü.' ] );
+	foreach ( fahrni_menu_keys() as $key => $label ) {
+		$c->add_setting( 'fahrni_menubild_' . $key, [ 'sanitize_callback' => 'absint' ] );
+		$c->add_control( new WP_Customize_Media_Control( $c, 'fahrni_menubild_' . $key, [ 'label' => "$label: Bild", 'section' => 'fahrni_menu', 'mime_type' => 'image' ] ) );
+		$c->add_setting( 'fahrni_menutext_' . $key, [ 'default' => fahrni_menu_text( $key ), 'sanitize_callback' => 'sanitize_text_field' ] );
+		$c->add_control( 'fahrni_menutext_' . $key, [ 'label' => "$label: Kurztext", 'section' => 'fahrni_menu', 'type' => 'text' ] );
+	}
+} );

@@ -24,6 +24,7 @@ function fahrni_labels( string $one, string $many, bool $female = true ): array 
 }
 
 add_action( 'init', function () {
+	add_post_type_support( 'page', 'excerpt' );
 	$common = [ 'public' => true, 'show_in_rest' => true, 'has_archive' => true ];
 
 	register_post_type( 'referenz', $common + [
