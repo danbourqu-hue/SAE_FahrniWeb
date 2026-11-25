@@ -110,7 +110,7 @@
     var show = function () { document.querySelectorAll(".mm-visual img").forEach(function (im) { im.classList.toggle("is-on", im.dataset.pic === a.dataset.pic); }); };
     a.addEventListener("mouseenter", show); a.addEventListener("focus", show);
   });
-  if (document.body.classList.contains("nav-burger")) document.body.addEventListener("keydown", function (e) {
+  if (document.querySelector(".mmenu")) document.body.addEventListener("keydown", function (e) {
     if (!document.body.classList.contains("menu-open") || e.key !== "Tab") return;  // Fokus im offenen Menü halten
     var f = [burger].concat(Array.prototype.slice.call(document.querySelectorAll("#menu a")));
     var i = f.indexOf(document.activeElement);
